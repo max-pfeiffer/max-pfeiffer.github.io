@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://max-pfeiffer.github.io/blog/sitemap.xml

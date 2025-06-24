@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<html lang="en" prefix="og: http://ogp.me/ns#">
+<head>
+<link href="http://gmpg.org/xfn/11" rel="profile"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="text/html; charset=utf-8" http-equiv="content-type"/>
+<!-- Metadata -->
+<meta content="Upgrading all Raspberry Pi 5 with NVMe HAT supporting two SSDs, re-installing Ceph cluster, Vlan configuration" name="description"/>
+<meta content="Upgrading all Raspberry Pi 5 with NVMe HAT supporting two SSDs, re-installing Ceph cluster, Vlan configuration" property="og:description"/>
+<meta content="Overhauling my Ceph cluster" property="og:title"/>
+<meta content="article" property="og:type"/>
+<meta content="http://127.0.0.1:8000/overhauling-my-ceph-cluster.html" property="og:url"/>
+<meta content="https://max-pfeiffer.github.io/blog/images/2025-03-08_overhauling_my_ceph_cluster.jpeg" property="og:image"/>
+<!-- Enable responsiveness on mobile devices-->
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1" name="viewport">
+<title>The Nerdy Tech Blog</title>
+<!-- CSS -->
+<link href="//fonts.googleapis.com/" rel="dns-prefetch"/>
+<link href="//fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic|Abril+Fatface|PT+Sans:400,400italic,700&amp;subset=latin,latin-ext" rel="stylesheet"/>
+<link href="http://127.0.0.1:8000/theme/css/poole.css" rel="stylesheet"/>
+<link href="http://127.0.0.1:8000/theme/css/hyde.css" rel="stylesheet"/>
+<link href="http://127.0.0.1:8000/theme/css/syntax.css" rel="stylesheet"/>
+<link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" rel="stylesheet">
+<!-- Feeds -->
+<!-- Analytics -->
+</link></meta><meta content="F3nYemi_dYYQckoOJ33wBp5BG4frj27_I6Iiianw594" name="google-site-verification"/><link href="/favicon.ico" rel="icon"/><link href="http://127.0.0.1:8000/overhauling-my-ceph-cluster.html" rel="canonical"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "The Nerdy Tech Blog", "item": "http://127.0.0.1:8000"}, {"@type": "ListItem", "position": 2, "name": "Overhauling my ceph cluster", "item": "http://127.0.0.1:8000/overhauling-my-ceph-cluster.html"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "author": {"@type": "Person", "name": "Max Pfeiffer"}, "publisher": {"@type": "Organization", "name": "The Nerdy Tech Blog", "logo": {"@type": "ImageObject", "url": "https://max-pfeiffer.github.io/blog/images/avatar.jpeg"}}, "headline": "Overhauling my Ceph cluster", "about": "misc", "datePublished": "2025-05-10 12:00", "image": "https://max-pfeiffer.github.io/blog/images/2025-03-08_overhauling_my_ceph_cluster.jpeg"}</script></head>
+<body class="theme-base-0d">
+<div class="sidebar">
+<div class="container sidebar-sticky">
+<div class="sidebar-about">
+<h1>
+<a href="http://127.0.0.1:8000/">
+<img class="profile-picture" src="http://127.0.0.1:8000/images/avatar.jpeg"/>
+					The Nerdy Tech Blog
+				</a>
+</h1>
+<p class="lead"></p>
+<p class="lead"> </p>
+<p></p>
+</div>
+<ul class="sidebar-nav">
+<li><a href="http://127.0.0.1:8000/pages/about.html">About</a></li>
+<li><a href="http://127.0.0.1:8000/pages/imprint.html">Imprint</a></li>
+<li><a href="http://127.0.0.1:8000/pages/privacy.html">Privacy</a></li>
+</ul>
+<nav class="sidebar-social">
+<a class="sidebar-social-item" href="https://github.com/max-pfeiffer" target="_blank">
+<i class="fa fa-github"></i>
+</a>
+<a class="sidebar-social-item" href="http://127.0.0.1:8000/">
+<i class="fa fa-rss"></i>
+</a>
+</nav>
+<p class="sidebar-footer">© 2025 Max Pfeiffer</p>
+</div>
+</div> <div class="content container">
+<div class="post">
+<h1 class="post-title">Overhauling my Ceph cluster</h1>
+<span class="post-date">Sat 10 May 2025</span>
+<p>I decided to optimize and secure my network setup at home. As part of this new configuration, I decided to put my Ceph
+cluster into a separate network and use a VLAN. After reading the
+<a href="https://docs.ceph.com/en/latest/rados/operations/add-or-rm-mons/#changing-a-monitor-s-ip-address">official documentation on that topic</a>,
+I learned that I am starting some bigger endeavour here. According to the documentation, existing Ceph monitors are not
+supposed to change their IP addresses. 😀 Nonetheless, I gave that a shot and screwed up my Ceph clusters
+configuration eventually. Not to a point where I could not fix it, but at some point I choose to reinstall it because
+that seemed less work.</p>
+<p>Also, I was not fully satisfied with the hardware setup of my devices: I was running the operating system for the
+Raspberry Pis on SD cards. When I put this together, this was a cheap and convenient option.
+This worked fine for roughly six months since
+<a href="http://127.0.0.1:8000/ceph-cluster-with-raspberry-pi-5-and-nvme-ssds.html">I initially put that together</a>. But that was
+not a speedy option for storing the monitor's map on the devices. Also, I am worried about the wear and tear on the SD
+Cards. So I choose to also improve the hardware setup and rip apart my Ceph cluster completely.</p>
+<h2>Hardware Improvements</h2>
+<p>I choose to go for another NVMe SSD for the Raspberry Pis main system storage. Therefore, I had to swap out the existing
+NVMe HAT I currently use for the devices as it just supports a single NVME SSD. So I ended up with this part list:</p>
+<ul>
+<li><a href="https://www.waveshare.com/pcie-to-2-ch-m.2-hat-plus-b.htm">3x Waveshare PCIe To 2-Ch M.2 Adapter Type B</a></li>
+<li><a href="https://www.transcend-info.com/product/internal-ssd/mte110s-112s">3x Transcend 110S NVMe SSD</a></li>
+</ul>
+<p>I removed the existing NVME HATs from all devices and installed the new one with now two NVMe SSDs.</p>
+<p><img alt="2025-03-08_overhauling_my_ceph_cluster.jpeg" src="http://127.0.0.1:8000/images/2025-05-10_overhauling_my_ceph_cluster.jpeg"/></p>
+<h2>Re-installing the Ceph Cluster</h2>
+<h3>Installing the Operating System</h3>
+<p>With the <a href="https://github.com/raspberrypi/rpi-imager">Raspberry Pi Imager</a> I flashed the Ubuntu server v24.04 to the
+three NVMe SSDs. I used a
+<a href="https://www.2direct.de/computer/festplattengehaeuse-zubehoer/dockingstations/5370/usb-3.2-gen2-quickport-1-port-fuer-m.2-nvme-pcie-und-sata-ngff-ssds">NVMe adapter from LogiLink</a>
+to do that. </p>
+<h3>Installing Ceph</h3>
+<p>I will not go too much into the details for the Ceph cluster installation itself as I already was covering this in my
+<a href="http://127.0.0.1:8000/ceph-cluster-with-raspberry-pi-5-and-nvme-ssds.html">earlier article about the initial installation</a>.
+So let's assume we already installed the Ceph cluster using <code>cephadm</code> and we would like to add the old devices for this
+cluster.</p>
+<p>Enter a shell using cephadm and check the old devices' status:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>cephadm<span class="w"> </span>shell
+$<span class="w"> </span>ceph<span class="w"> </span>orch<span class="w"> </span>device<span class="w"> </span>ls<span class="w"> </span>--wide<span class="w"> </span>--refresh
+HOST<span class="w">   </span>PATH<span class="w">          </span>TYPE<span class="w">  </span>TRANSPORT<span class="w">  </span>RPM<span class="w">  </span>DEVICE<span class="w"> </span>ID<span class="w">                              </span>SIZE<span class="w">  </span>HEALTH<span class="w">  </span>IDENT<span class="w">  </span>FAULT<span class="w">  </span>AVAILABLE<span class="w">  </span>REFRESHED<span class="w">  </span>REJECT<span class="w"> </span>REASONS<span class="w">                                                           </span>
+ceph1<span class="w">  </span>/dev/nvme0n1<span class="w">  </span>ssd<span class="w">                   </span>KINGSTON_SNV3S1000G_50026B73831D5E2F<span class="w">   </span>931G<span class="w">          </span>N/A<span class="w">    </span>N/A<span class="w">    </span>No<span class="w">         </span>6m<span class="w"> </span>ago<span class="w">     </span>Has<span class="w"> </span>a<span class="w"> </span>FileSystem,<span class="w"> </span>Insufficient<span class="w"> </span>space<span class="w"> </span><span class="o">(</span>&lt;<span class="m">10</span><span class="w"> </span>extents<span class="o">)</span><span class="w"> </span>on<span class="w"> </span>vgs,<span class="w"> </span>LVM<span class="w"> </span>detected<span class="w">  </span>
+ceph2<span class="w">  </span>/dev/nvme0n1<span class="w">  </span>ssd<span class="w">                   </span>KINGSTON_SNV3S1000G_50026B7785C1AC00<span class="w">   </span>931G<span class="w">          </span>N/A<span class="w">    </span>N/A<span class="w">    </span>No<span class="w">         </span>6m<span class="w"> </span>ago<span class="w">     </span>Has<span class="w"> </span>a<span class="w"> </span>FileSystem,<span class="w"> </span>Insufficient<span class="w"> </span>space<span class="w"> </span><span class="o">(</span>&lt;<span class="m">10</span><span class="w"> </span>extents<span class="o">)</span><span class="w"> </span>on<span class="w"> </span>vgs,<span class="w"> </span>LVM<span class="w"> </span>detected<span class="w">  </span>
+ceph3<span class="w">  </span>/dev/nvme0n1<span class="w">  </span>ssd<span class="w">                   </span>KINGSTON_SNV3S1000G_50026B7785C1ABFC<span class="w">   </span>931G<span class="w">          </span>N/A<span class="w">    </span>N/A<span class="w">    </span>No<span class="w">         </span>6m<span class="w"> </span>ago<span class="w">     </span>Has<span class="w"> </span>a<span class="w"> </span>FileSystem,<span class="w"> </span>Insufficient<span class="w"> </span>space<span class="w"> </span><span class="o">(</span>&lt;<span class="m">10</span><span class="w"> </span>extents<span class="o">)</span><span class="w"> </span>on<span class="w"> </span>vgs,<span class="w"> </span>LVM<span class="w"> </span>detected
+</code></pre></div>
+<p>The old clutter is still on the devices. So we need to zap the SSDs on all hosts:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ceph<span class="w"> </span>orch<span class="w"> </span>device<span class="w"> </span>zap<span class="w"> </span>ceph1<span class="w"> </span>/dev/nvme0n1<span class="w"> </span>--force
+zap<span class="w"> </span>successful<span class="w"> </span><span class="k">for</span><span class="w"> </span>/dev/nvme0n1<span class="w"> </span>on<span class="w"> </span>ceph1
+$<span class="w"> </span>ceph<span class="w"> </span>orch<span class="w"> </span>device<span class="w"> </span>zap<span class="w"> </span>ceph2<span class="w"> </span>/dev/nvme0n1<span class="w"> </span>--force
+zap<span class="w"> </span>successful<span class="w"> </span><span class="k">for</span><span class="w"> </span>/dev/nvme0n1<span class="w"> </span>on<span class="w"> </span>ceph2
+$<span class="w"> </span>ceph<span class="w"> </span>orch<span class="w"> </span>device<span class="w"> </span>zap<span class="w"> </span>ceph3<span class="w"> </span>/dev/nvme0n1<span class="w"> </span>--force
+zap<span class="w"> </span>successful<span class="w"> </span><span class="k">for</span><span class="w"> </span>/dev/nvme0n1<span class="w"> </span>on<span class="w"> </span>ceph3
+$<span class="w"> </span>ceph<span class="w"> </span>orch<span class="w"> </span>device<span class="w"> </span>ls<span class="w"> </span>--wide<span class="w"> </span>--refresh
+HOST<span class="w">   </span>PATH<span class="w">          </span>TYPE<span class="w">  </span>TRANSPORT<span class="w">  </span>RPM<span class="w">  </span>DEVICE<span class="w"> </span>ID<span class="w">                              </span>SIZE<span class="w">  </span>HEALTH<span class="w">  </span>IDENT<span class="w">  </span>FAULT<span class="w">  </span>AVAILABLE<span class="w">  </span>REFRESHED<span class="w">  </span>REJECT<span class="w"> </span>REASONS<span class="w">  </span>
+ceph1<span class="w">  </span>/dev/nvme0n1<span class="w">  </span>ssd<span class="w">                   </span>KINGSTON_SNV3S1000G_50026B73831D5E2F<span class="w">   </span>931G<span class="w">          </span>N/A<span class="w">    </span>N/A<span class="w">    </span>Yes<span class="w">        </span>3m<span class="w"> </span>ago<span class="w">                     </span>
+ceph2<span class="w">  </span>/dev/nvme0n1<span class="w">  </span>ssd<span class="w">                   </span>KINGSTON_SNV3S1000G_50026B7785C1AC00<span class="w">   </span>931G<span class="w">          </span>N/A<span class="w">    </span>N/A<span class="w">    </span>Yes<span class="w">        </span>3m<span class="w"> </span>ago<span class="w">                     </span>
+ceph3<span class="w">  </span>/dev/nvme0n1<span class="w">  </span>ssd<span class="w">                   </span>KINGSTON_SNV3S1000G_50026B7785C1ABFC<span class="w">   </span>931G<span class="w">          </span>N/A<span class="w">    </span>N/A<span class="w">    </span>Yes<span class="w">        </span>3m<span class="w"> </span>ago<span class="w">                     </span>
+</code></pre></div>
+<p>Add all SSDs as storage devices to the Ceph cluster:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ceph<span class="w"> </span>orch<span class="w"> </span>apply<span class="w"> </span>osd<span class="w"> </span>--all-available-devices
+Scheduled<span class="w"> </span>osd.all-available-devices<span class="w"> </span>update...
+</code></pre></div>
+<p>After a while, I checked my Ceph dashboard: all devices were added. The cluster was healthy and operational again.
+In my Kubernetes cluster, I just had to update the <a href="http://127.0.0.1:8000/configuring-and-using-ceph-csi-driver-for-kubernetes.html">Ceph CSI driver configuration</a>
+with the new Ceph cluster information:</p>
+<ul>
+<li>IP addresses of Ceph monitors</li>
+<li>Cluster ID</li>
+<li>secrets</li>
+</ul>
+<p>Then everything was operational again.</p>
+<h2>Observations</h2>
+<p>The main bottleneck of my setup is the networking. A Raspberry Pi 5 just has a Gigabit network adapter. So throughput
+is limited to just ~100MB per second. With jumbo frames, you can tease out more throughput. But this has undesirable 
+side effects in this setup in conjunction with Kubernetes.
+This is ok for some lab environment you run at home. But this is absolutely not sufficient for more serious appliances.
+I guess I do not need to tell you that using Raspberry Pis for a Ceph cluster is not a good idea for any serious
+appliance at all. 😀</p>
+<h2>Related Articles</h2>
+<ul>
+<li><a href="http://127.0.0.1:8000/ceph-cluster-with-raspberry-pi-5-and-nvme-ssds.html">Ceph Cluster with Raspberry Pi 5 and NVMe SSDs</a> </li>
+<li><a href="http://127.0.0.1:8000/configuring-and-using-ceph-csi-driver-for-kubernetes.html">Configuring and using Ceph CSI Driver for Kubernetes</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

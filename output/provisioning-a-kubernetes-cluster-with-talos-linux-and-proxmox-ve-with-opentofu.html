@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html lang="en" prefix="og: http://ogp.me/ns#">
+<head>
+<link href="http://gmpg.org/xfn/11" rel="profile"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="text/html; charset=utf-8" http-equiv="content-type"/>
+<!-- Metadata -->
+<meta content="Proof of concept project for provisioning a Kubernetes cluster with Talos Linux and Proxmox VE with OpenTofu" name="description"/>
+<meta content="Proof of concept project for provisioning a Kubernetes cluster with Talos Linux and Proxmox VE with OpenTofu" property="og:description"/>
+<meta content="Provisioning a Kubernetes Cluster with Talos Linux and Proxmox VE with OpenTofu" property="og:title"/>
+<meta content="article" property="og:type"/>
+<meta content="http://127.0.0.1:8000/provisioning-a-kubernetes-cluster-with-talos-linux-and-proxmox-ve-with-opentofu.html" property="og:url"/>
+<!-- Enable responsiveness on mobile devices-->
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1" name="viewport">
+<title>The Nerdy Tech Blog</title>
+<!-- CSS -->
+<link href="//fonts.googleapis.com/" rel="dns-prefetch"/>
+<link href="//fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic|Abril+Fatface|PT+Sans:400,400italic,700&amp;subset=latin,latin-ext" rel="stylesheet"/>
+<link href="http://127.0.0.1:8000/theme/css/poole.css" rel="stylesheet"/>
+<link href="http://127.0.0.1:8000/theme/css/hyde.css" rel="stylesheet"/>
+<link href="http://127.0.0.1:8000/theme/css/syntax.css" rel="stylesheet"/>
+<link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" rel="stylesheet">
+<!-- Feeds -->
+<!-- Analytics -->
+</link></meta><meta content="F3nYemi_dYYQckoOJ33wBp5BG4frj27_I6Iiianw594" name="google-site-verification"/><link href="/favicon.ico" rel="icon"/><link href="http://127.0.0.1:8000/provisioning-a-kubernetes-cluster-with-talos-linux-and-proxmox-ve-with-opentofu.html" rel="canonical"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "The Nerdy Tech Blog", "item": "http://127.0.0.1:8000"}, {"@type": "ListItem", "position": 2, "name": "Provisioning a kubernetes cluster with talos linux and proxmox ve with opentofu", "item": "http://127.0.0.1:8000/provisioning-a-kubernetes-cluster-with-talos-linux-and-proxmox-ve-with-opentofu.html"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "author": {"@type": "Person", "name": "Max Pfeiffer"}, "publisher": {"@type": "Organization", "name": "The Nerdy Tech Blog", "logo": {"@type": "ImageObject", "url": "https://max-pfeiffer.github.io/blog/images/avatar.jpeg"}}, "headline": "Provisioning a Kubernetes Cluster with Talos Linux and Proxmox VE with OpenTofu", "about": "misc", "datePublished": "2024-12-25 15:00"}</script></head>
+<body class="theme-base-0d">
+<div class="sidebar">
+<div class="container sidebar-sticky">
+<div class="sidebar-about">
+<h1>
+<a href="http://127.0.0.1:8000/">
+<img class="profile-picture" src="http://127.0.0.1:8000/images/avatar.jpeg"/>
+					The Nerdy Tech Blog
+				</a>
+</h1>
+<p class="lead"></p>
+<p class="lead"> </p>
+<p></p>
+</div>
+<ul class="sidebar-nav">
+<li><a href="http://127.0.0.1:8000/pages/about.html">About</a></li>
+<li><a href="http://127.0.0.1:8000/pages/imprint.html">Imprint</a></li>
+<li><a href="http://127.0.0.1:8000/pages/privacy.html">Privacy</a></li>
+</ul>
+<nav class="sidebar-social">
+<a class="sidebar-social-item" href="https://github.com/max-pfeiffer" target="_blank">
+<i class="fa fa-github"></i>
+</a>
+<a class="sidebar-social-item" href="http://127.0.0.1:8000/">
+<i class="fa fa-rss"></i>
+</a>
+</nav>
+<p class="sidebar-footer">© 2025 Max Pfeiffer</p>
+</div>
+</div> <div class="content container">
+<div class="post">
+<h1 class="post-title">Provisioning a Kubernetes Cluster with Talos Linux and Proxmox VE with OpenTofu</h1>
+<span class="post-date">Wed 25 December 2024</span>
+<p>The whole story started for me when a colleague recommended <a href="https://www.talos.dev/">Talos Linux</a> for building
+a Kubernetes cluster on bare metal some weeks ago.
+He sent me a video from <a href="https://dhcp.cfhn.it/">DHCP 2024 conference</a> which dragged me into that topic
+(sorry for the German). I was amazed by that concept and immediately started to inhale the docs and related projects
+on GitHub.</p>
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/fjNOYHrfVDE?si=Rrfm2tF8x_jXPi-L" title="YouTube video player" width="560"></iframe>
+<p><a href="https://www.talos.dev/">Talos Linux</a> is a special Linux distribution geared towards its only purpose which is
+providing a platform for Kubernetes. It comes with an API which can be utilized for provision and configure the OS
+installation and the Kubernetes cluster. That makes it an ideal partner for provisioning Tools like
+<a href="https://opentofu.org/">OpenTofu</a> or Terraform. Consequently, there is no direct shell access to the Talos
+machines. The company behind <a href="https://www.talos.dev/">Talos Linux</a> is <a href="https://www.siderolabs.com/">Siderolabs</a>.</p>
+<p>There is this official <a href="https://github.com/siderolabs/terraform-provider-talos">terraform-provider-talos</a> from
+<a href="https://www.siderolabs.com/">Siderolabs</a> that you can use.</p>
+<p>I like that infrastructure-as-code approach, so I started a proof of concept project with
+<a href="https://opentofu.org/">OpenTofu</a> the next weekend. I already have Proxmox VE as hypervisor running in my home lab,
+so I spun up some virtual machines on that server using the <a href="https://www.talos.dev/">Talos Linux</a> iso image and used the
+<a href="https://github.com/siderolabs/terraform-provider-talos">Talos Terraform provider</a> to provision the Kubernetes cluster.</p>
+<p>I was absolutely amazed how easy that was. I just spent roughly three hours to put together this little POC
+project: <a href="https://github.com/max-pfeiffer/proxmox-talos-opentofu">https://github.com/max-pfeiffer/proxmox-talos-opentofu</a></p>
+<p>I encourage everyone to give Talos Linux a shot and try it out. </p>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html lang="en" prefix="og: http://ogp.me/ns#">
+<head>
+<link href="http://gmpg.org/xfn/11" rel="profile"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="text/html; charset=utf-8" http-equiv="content-type"/>
+<!-- Metadata -->
+<meta content="A guide for configuring Single Sign On (SSO) for Grafana with Keycloak, contains also examples for OpenTofu" name="description"/>
+<meta content="A guide for configuring Single Sign On (SSO) for Grafana with Keycloak, contains also examples for OpenTofu" property="og:description"/>
+<meta content="Single Sign On (SSO) for Grafana with Keycloak" property="og:title"/>
+<meta content="article" property="og:type"/>
+<meta content="http://127.0.0.1:8000/single-sign-on-sso-for-grafana-with-keycloak.html" property="og:url"/>
+<meta content="http://127.0.0.1:8000/images/avatar.jpeg" property="og:image"/>
+<!-- Enable responsiveness on mobile devices-->
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1" name="viewport">
+<title>The Nerdy Tech Blog</title>
+<!-- CSS -->
+<link href="//fonts.googleapis.com/" rel="dns-prefetch"/>
+<link href="//fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic|Abril+Fatface|PT+Sans:400,400italic,700&amp;subset=latin,latin-ext" rel="stylesheet"/>
+<link href="http://127.0.0.1:8000/theme/css/poole.css" rel="stylesheet"/>
+<link href="http://127.0.0.1:8000/theme/css/hyde.css" rel="stylesheet"/>
+<link href="http://127.0.0.1:8000/theme/css/syntax.css" rel="stylesheet"/>
+<link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" rel="stylesheet">
+<!-- Feeds -->
+<!-- Analytics -->
+</link></meta><meta content="F3nYemi_dYYQckoOJ33wBp5BG4frj27_I6Iiianw594" name="google-site-verification"/><link href="http://127.0.0.1:8000/single-sign-on-sso-for-grafana-with-keycloak.html" rel="canonical"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "The Nerdy Tech Blog", "item": "http://127.0.0.1:8000"}, {"@type": "ListItem", "position": 2, "name": "Single sign on sso for grafana with keycloak", "item": "http://127.0.0.1:8000/single-sign-on-sso-for-grafana-with-keycloak.html"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "author": {"@type": "Person", "name": "Max Pfeiffer"}, "publisher": {"@type": "Organization", "name": "The Nerdy Tech Blog", "logo": {"@type": "ImageObject", "url": "https://max-pfeiffer.github.io/blog/images/avatar.jpeg"}}, "headline": "Single Sign On (SSO) for Grafana with Keycloak", "about": "misc", "datePublished": "2025-02-07 16:00", "image": "https://max-pfeiffer.github.io/blog/images/2025-02-07_keycloak_client_scopes_evaluate.png"}</script></head>
+<body class="theme-base-0d">
+<div class="sidebar">
+<div class="container sidebar-sticky">
+<div class="sidebar-about">
+<h1>
+<a href="/">
+<img class="profile-picture" src="http://127.0.0.1:8000/images/avatar.jpeg"/>
+					The Nerdy Tech Blog
+				</a>
+</h1>
+<p class="lead"></p>
+<p class="lead"> </p>
+<p></p>
+</div>
+<ul class="sidebar-nav">
+<li><a href="http://127.0.0.1:8000/pages/about.html">About</a></li>
+<li><a href="http://127.0.0.1:8000/pages/imprint.html">Imprint</a></li>
+<li><a href="http://127.0.0.1:8000/pages/privacy.html">Privacy</a></li>
+</ul>
+<nav class="sidebar-social">
+<a class="sidebar-social-item" href="https://github.com/max-pfeiffer" target="_blank">
+<i class="fa fa-github"></i>
+</a>
+<a class="sidebar-social-item" href="http://127.0.0.1:8000/">
+<i class="fa fa-rss"></i>
+</a>
+</nav>
+<p class="sidebar-footer">© 2025 Max Pfeiffer</p>
+</div>
+</div> <div class="content container">
+<div class="post">
+<h1 class="post-title">Single Sign On (SSO) for Grafana with Keycloak</h1>
+<span class="post-date">Fri 07 February 2025</span>
+<p>I am running <a href="https://www.keycloak.org/">Keycloak</a> as identity provider in my Kubernetes cluster because I want to have
+Single Sign On (SSO) for all my applications. In the last years the <a href="https://www.keycloak.org/">Keycloak</a>
+project matured quite a bit and became a capable and convenient solution. I am doing infrastructure as code
+and installed it using <a href="https://opentofu.org/">OpenTofu</a> into my Kubernetes cluster. Since version v26.0.0
+<a href="https://www.keycloak.org/">Keycloak</a> provides
+<a href="2025-01-10_how_to_configure_keycloak_terraform_provider.md">a nice option for automated provisioning by bootstrapping a confidential client</a>.</p>
+<p>When I started to configure the SSO integration for Grafana, I noticed that the
+<a href="https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/keycloak/">official Grafana documentation</a>
+is outdated. Both for the latest Grafana version and the latest Keycloak version. Following the instructions there
+does not result in a working SSO configuration. So I decided to write that guide as it might provide some value to
+other persons starting the same endeavor. I will first focus on the Keycloak changes and traps I fell into.</p>
+<h2>Mapping Keycloak users and roles to Grafana</h2>
+<p>For SSO you want to configure roles in Keycloak which are then mapped to the roles in Grafana accordingly.
+<a href="https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/">Grafana knows about these roles which result in different permissions</a>:</p>
+<ul>
+<li>GrafanaAdmin</li>
+<li>Admin</li>
+<li>Editor</li>
+<li>Viewer</li>
+</ul>
+<p>You can assign these roles in Keycloak to users. And when the user signs in with SSO into Grafana, he then becomes
+assigned the matching Grafana role and has the permissions which are configured in Grafana for this role.</p>
+<h3>Roles in Keycloak</h3>
+<p>You need to be aware that there are two types of roles you can use in Keycloak:</p>
+<ul>
+<li>Realm roles</li>
+<li>Client roles</li>
+</ul>
+<p>As the name already tells you, you can configure these roles either for realms or client in their own user interface
+sections.</p>
+<p>And following the above-mentioned naming convention, you can configure roles with these names in Keycloak:</p>
+<ul>
+<li>grafanaadmin</li>
+<li>admin</li>
+<li>editor</li>
+<li>viewer</li>
+</ul>
+<p>Both types of roles will work. But you need to make sure that you have configured the mapper for each role type, so 
+the roles are included in the JWT.</p>
+<p>In recent versions of Keycloak the standard way how Keycloak maps roles to JSON Web Tokens (JWT) did change. By default,
+Keycloak does not map realm roles to the <code>roles</code> attribute anymore. They are mapped to <code>resource_access</code> and are nested
+nowadays:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"resource_access"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"grafana"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"roles"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">"grafanaadmin"</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>So you either want to change the way Keycloak maps the roles to the JWT or change the way Grafana parses the JWT claims.
+Both is a bit tricky to do. </p>
+<h3>Grafana role mapping</h3>
+<p>The relevant <a href="https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/generic-oauth/#configuration-options">configuration option</a>
+in Grafana is <code>role_attribute_path</code>. Grafana is using <a href="https://jmespath.org/">JMESPath</a> expressions to extract the
+roles from the string you specify in <code>role_attribute_path</code>. To match the new Keycloak default (see above) you want to
+do configure it like this:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">role_attribute_path</span><span class="p">:</span><span class="w"> </span><span class="s">"contains(resource_access.grafana.roles[*],</span><span class="nv"> </span><span class="s">'grafanaadmin')</span><span class="nv"> </span><span class="s">&amp;&amp;</span><span class="nv"> </span><span class="s">'GrafanaAdmin'</span><span class="nv"> </span><span class="s">||</span><span class="nv"> </span><span class="s">contains(resource_access.grafana.roles[*],</span><span class="nv"> </span><span class="s">'admin')</span><span class="nv"> </span><span class="s">&amp;&amp;</span><span class="nv"> </span><span class="s">'Admin'</span><span class="nv"> </span><span class="s">||</span><span class="nv"> </span><span class="s">contains(resource_access.grafana.roles[*],</span><span class="nv"> </span><span class="s">'editor')</span><span class="nv"> </span><span class="s">&amp;&amp;</span><span class="nv"> </span><span class="s">'Editor'</span><span class="nv"> </span><span class="s">||</span><span class="nv"> </span><span class="s">'Viewer'"</span>
+</code></pre></div>
+<p>For working out this or another custom solution I found the <a href="https://play.jmespath.org/">JMESPath playground</a>
+invaluable. There you can throw in your JSON claims from JWT and put together your own JMESPath expression. You get
+direct feedback for the result right away.</p>
+<h3>Keycloak JWT debugging</h3>
+<p>Keycloak provides nowadays an option to check on mappers and JWTs for a certain user in its own user interface.
+This option is well hidden in the client configuration section: there you need to click the "Client scopes" tab. Then
+select the "Evaluate" tab.</p>
+<p><img alt="2025-02-07_keycloak_client_scopes_evaluate.jpg" src="http://127.0.0.1:8000/images/2025-02-07_keycloak_client_scopes_evaluate.png"/></p>
+<p>I personally found this a bit cumbersome to use and wanted to have something without UI which I can include in an
+automated test flow. So I quickly wrote a <a href="https://github.com/max-pfeiffer/keycloak-jwt-checker">CLI tool to check on JWT claims</a>
+myself. Give it a try if you are sick of using the Keycloak UI. 😀</p>
+<h3>ID Token claims</h3>
+<p>When creating a new client within Keycloak, per default the role claims are not added to the ID token. This is causing
+Grafana role mapping to fail. So you need to make sure that your role mapper includes the roles in the ID token.
+Otherwise, the login works, but your user's role always falls back to <code>Viewer</code>. The following screenshot shows a client
+role mapper. Please note that the switch "Add to ID token" is active.</p>
+<p><img alt="2025-02-07_keycloak_client_scope_mapper.png" src="http://127.0.0.1:8000/images/2025-02-07_keycloak_client_scope_mapper.png"/></p>
+<h2>Refresh token</h2>
+<p>When creating a new client within Keycloak per default, issuing a refresh token is configured. This is causing problems
+as well if not configured correctly. First make sure that the Keycloak user that you want to sign in with has the
+role <code>offline_access</code>. Otherwise, the login will <strong>fail</strong> completely. In Grafana config you want to set
+<code>use_refresh_token = true</code>. That should do the trick.</p>
+</div>
+</div>
+</body>
+</html>
