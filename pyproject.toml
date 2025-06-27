@@ -9,9 +9,9 @@ readme = "README.md"
 python = "^3.12"
 pelican = {version = "4.11.0", extras = ["markdown"]}
 pelican-seo = "1.4.0"
-pelican-sitemap = "1.2.1"
 pelican-injector = "1.0.0"
 minchin-pelican-plugins-nojekyll = "1.2.0"
+pelican-sitemap = {git = "https://github.com/max-pfeiffer/sitemap.git", rev = "bugfix/xml-header"}
 
 [build-system]
 requires = ["poetry-core"]

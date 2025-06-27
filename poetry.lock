@@ -365,16 +365,20 @@ description = "Pelican plugin to generate sitemap in plain-text or XML format"
 optional = false
 python-versions = "~=3.9"
 groups = ["main"]
-files = [
-    {file = "pelican_sitemap-1.2.1-py3-none-any.whl", hash = "sha256:63d7f2338974d7af1b2060306e2dabc9b37a1e4d79f9a7e15c07216b824b776f"},
-    {file = "pelican_sitemap-1.2.1.tar.gz", hash = "sha256:ad0c8e7e21ac2c2199474fab0b79edfa03c062d57f635a664388dc7119ae9886"},
-]
+files = []
+develop = false
 
 [package.dependencies]
 pelican = ">=4.5"
 
 [package.extras]
 markdown = ["markdown (>=3.4)"]
+
+[package.source]
+type = "git"
+url = "https://github.com/max-pfeiffer/sitemap.git"
+reference = "bugfix/xml-header"
+resolved_reference = "81f7a1e2a47b96160563198d46cb6b60c81779e9"
 
 [[package]]
 name = "pygments"
@@ -648,4 +652,4 @@ anyio = ">=3.0.0"
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.12"
-content-hash = "c63b32ddb175a993b48c02d9063c5a900f75410418cc079794ce3f81ea5bed1c"
+content-hash = "b37258e6a75273d9afe30f34fe5dcf87e702e953b611f7dda619f42aa2851c84"
