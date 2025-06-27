@@ -5,7 +5,7 @@ Date: 2025-05-10 12:00
 Author: Max Pfeiffer
 Lang: en
 Keywords: Ceph, Ceph CSI, Raspberry Pi 5, VLAN, Kubernetes
-Image: https://max-pfeiffer.github.io/blog/images/2025-03-08_overhauling_my_ceph_cluster.jpeg
+Image: https://max-pfeiffer.github.io/blog/images/2025-05-10_overhauling_my_ceph_cluster.jpeg
 
 I decided to optimize and secure my network setup at home. As part of this new configuration, I decided to put my Ceph
 cluster into a separate network and use a VLAN. After reading the
