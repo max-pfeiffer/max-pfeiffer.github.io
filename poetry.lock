@@ -378,7 +378,7 @@ markdown = ["markdown (>=3.4)"]
 type = "git"
 url = "https://github.com/max-pfeiffer/sitemap.git"
 reference = "bugfix/xml-header"
-resolved_reference = "81f7a1e2a47b96160563198d46cb6b60c81779e9"
+resolved_reference = "128c46de99736c3dd76f9e39a958cbd98ac197db"
 
 [[package]]
 name = "pygments"
