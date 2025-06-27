@@ -12,5 +12,5 @@ jobs:
       id-token: "write"
     with:
       settings: "publishconf.py"
-      requirements: "pelican[markdown] pelican-seo pelican-sitemap pelican-injector minchin-pelican-plugins-nojekyll"
+      requirements: "pelican[markdown] pelican-seo git+https://github.com/max-pfeiffer/sitemap.git#bugfix/xml-header pelican-injector minchin-pelican-plugins-nojekyll"
       theme: "https://github.com/max-pfeiffer/pelican-hyde"
