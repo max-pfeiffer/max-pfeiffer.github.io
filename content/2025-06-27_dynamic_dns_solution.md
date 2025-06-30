@@ -1,6 +1,6 @@
 Title: Cost efficient dynamic DNS solution with AWS resources
-Description: I build my own dynamic DNS solution using AWS resources and a my own dynamic-dns-update-client
-Summary: I build my own dynamic DNS solution using AWS resources and a my own dynamic-dns-update-client
+Description: I build my own dynamic DNS solution using AWS resources and my own dynamic-dns-update-client
+Summary: I build my own dynamic DNS solution using AWS resources and my own dynamic-dns-update-client
 Date: 2025-06-27 20:00
 Author: Max Pfeiffer
 Lang: en
