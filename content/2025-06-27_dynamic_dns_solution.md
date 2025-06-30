@@ -58,11 +58,25 @@ but configuration is a nightmare, especially if you have some more exotic use ca
 ![2025-06-27_dynamic_dns_update_client.png]({static}/images/2025-06-27_dynamic_dns_update_client.png)
 
 So I decided to write a [dynamic-dns-update-client](https://github.com/max-pfeiffer/dynamic-dns-update-client) myself.
-You can run this CLI tool locally on your machine, on an [OpenWRT](https://openwrt.org/) router or on any other machine in your
-infrastructure. It requires:
+It's basically a companion project for [Simple Dynamic DNS with AWS](https://github.com/max-pfeiffer/simple-dynamic-dns-aws).
+It's a little CLI tool written in Python that obtains your public IP address by different means and then updates the IP
+address at the dynamic DNS provider using an HTTP request. You can run it locally on your machine,
+on an [OpenWRT](https://openwrt.org/) router or on any other machine in your infrastructure. It requires:
 
 * Python v3.11 or higher
 * pip
+
+You can pick from four methods for getting the public IP address:
+
+* `openwrt_network`: on an OpenWRT device by calling OpenWRT specific functions
+* `interface`: physical network interface to look for the public IP address (parses `ip` or `ifconfig` output)
+* by calling one of the following IP address services using an HTTP GET request:
+    * `ipify`: [https://www.ipify.org](https://www.ipify.org/)
+    * `dyndns`: [https://help.dyn.com/remote-access-api/checkip-tool](https://help.dyn.com/remote-access-api/checkip-tool/)
+
+This way you are quite flexible where you run it. You can install and run it on your router in front of your
+infrastructure. Or you can run it on any device or in a container anywhere else in your IT infrastructure behind your
+router when you use one of the two IP address services.
 
 ## Usage
 Install it with pip:
@@ -70,10 +84,14 @@ Install it with pip:
 $ pip install dynamic-dns-update-client
 ```
 
-This is a companion project for [Simple Dynamic DNS with AWS](https://github.com/max-pfeiffer/simple-dynamic-dns-aws). You can use it for calling your new Lamda function. 
-You can play around and using the `--dry-run` option to check how it works:
+You can use it for calling your new Lamda function, which you created with [Simple Dynamic DNS with AWS](https://github.com/max-pfeiffer/simple-dynamic-dns-aws). 
+Start playing around and use the `--dry-run` option to check how it works:
 ```shell
-$ dynamic-dns-update-client https://uwigefgf8437rgeydbea2q40jedbl.lambda-url.eu-central-1.on.aws/ --ip-address-url-parameter-name ip --url-parameter domain=example.com --url-parameter api-token=nd4u33huruffbn --dry-run
+$ dynamic-dns-update-client https://uwigefgf8437rgeydbea2q40jedbl.lambda-url.eu-central-1.on.aws/ \
+  --ip-address-url-parameter-name ip \
+  --url-parameter domain=example.com \
+  --url-parameter api-token=nd4u33huruffbn \
+  --dry-run
 Current IP address: 82.4.110.122
 Dry run, no changes will be made.
 Dynamic DNS provider URL: https://uwigefgf8437rgeydbea2q40jedbl.lambda-url.eu-central-1.on.aws/?ip-address=82.4.110.122&domain=example.com&api-token=nd4u33huruffbn
