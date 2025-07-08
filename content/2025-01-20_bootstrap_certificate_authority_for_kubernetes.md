@@ -39,13 +39,13 @@ step ca init --helm > values.yaml
 This will result in some interactive process where you need to enter the following configuration options:
 
 1. Deployment Type: you want to select `Standalone` here
-2. Name od the PKI: pick something that suits you
+2. Name of the PKI: pick something that suits you
 3. DNS names: here you need to have a FQDN for:
-   1. cert-manager (mandatory): this needs to be some FQDN that your
-      [internal Kubernetes DNS can resolve](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/),
-      i.e. `step-certificates.security.svc.cluster.local` or `step-certificates.cert` **depending on the namespace you
-      will install it into**
-   2. the outside world: if you choose to offer that service on some public domain i.e. `ca.yourdomain.com`
+      1. cert-manager (mandatory): this needs to be some FQDN that your
+         [internal Kubernetes DNS can resolve](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/),
+         i.e. `step-certificates.security.svc.cluster.local` or `step-certificates.cert` **depending on the namespace you
+         will install it into**
+      2. the outside world: if you choose to offer that service on some public domain i.e. `ca.yourdomain.com`
 4. IP and port: go with the default `:9000` or pick whatever matches your use case
 5. First provisioner name: as we are aiming for cert-manager using it, `cert-manager` is probably a good choice
 6. Password: when you generate one, it ends up base64encoded in that `values.yaml` file
