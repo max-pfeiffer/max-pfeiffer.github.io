@@ -5,7 +5,7 @@ Date: 2025-01-20 21:00
 Author: Max Pfeiffer
 Lang: en
 Keywords: CA, certificate authority, Step CA, Step Issuer, cert-manager, bootstrap, Kubernetes, TLS
-Image: https://max-pfeiffer.github.io/blog/images/2025-01-20_bootstrap_certificate_authority.jpeg
+Image: https://max-pfeiffer.github.io/images/2025-01-20_bootstrap_certificate_authority.jpeg
 
 In overall, I was a bit unhappy using self-signed TLS certificates in my home lab Kubernetes cluster. I found it
 annoying to click away these warnings in my browser. Also, I ran into a couple of problems using self-signed

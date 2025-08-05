@@ -5,7 +5,7 @@ Date: 2025-06-27 20:00
 Author: Max Pfeiffer
 Lang: en
 Keywords: Dynamic DNS, DNS, OpenWRT, Dynamic DNS Update Client, OpenTofu
-Image: https://max-pfeiffer.github.io/blog/images/2025-06-27_simple_dynamic_dns_aws.png
+Image: https://max-pfeiffer.github.io/images/2025-06-27_simple_dynamic_dns_aws.png
 
 For my home lab, I have the need to expose some services on the public internet. My current ISP does not offer
 fixed IP addresses. So I was looking at some of the dynamic DNS providers out there. I did not feel like spending money

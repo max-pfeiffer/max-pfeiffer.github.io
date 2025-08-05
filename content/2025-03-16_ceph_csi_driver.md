@@ -5,7 +5,7 @@ Date: 2025-03-16 11:00
 Author: Max Pfeiffer
 Lang: en
 Keywords: Ceph, Ceph CSI, Container Storage Interface, Kubernetes, Storage, Volumes, PVC
-Image: https://max-pfeiffer.github.io/blog/images/2025-03-16_ceph_csi_driver.png
+Image: https://max-pfeiffer.github.io/images/2025-03-16_ceph_csi_driver.png
 
 For my Kubernetes cluster, [I build a Ceph cluster with three Raspberry PI 5 as storage solution]({filename}/2024-12-26_ceph_cluster_with_raspberry_pi_5.md). 
 For hooking up that Ceph cluster to Kubernetes, you need to leverage the Kubernetes Container Storage Interface (CSI).

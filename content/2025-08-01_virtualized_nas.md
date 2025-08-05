@@ -5,7 +5,7 @@ Date: 2025-08-03 20:00
 Author: Max Pfeiffer
 Lang: en
 Keywords: NAS, TrueNAS, Proxmox, Virtual Machine
-Image: https://max-pfeiffer.github.io/blog/images/2025-08-03_vitualized_nas_broadcom_controller.jpeg
+Image: https://max-pfeiffer.github.io/images/2025-08-03_vitualized_nas_broadcom_controller.jpeg
 
 I have a Proxmox VE hypervisor running on a server with free resources. Plus, I happen to have a stack of hard disks
 lying around. And I have the need for some network storage space. The experience I made with some of-the-shelf NAS

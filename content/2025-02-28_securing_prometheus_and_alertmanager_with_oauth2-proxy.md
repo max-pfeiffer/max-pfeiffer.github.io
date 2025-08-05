@@ -5,7 +5,7 @@ Date: 2025-02-28 12:00
 Author: Max Pfeiffer
 Lang: en
 Keywords: Prometheus, Alertmanager, oauth2-proxy, Keycloak, SSO, Single Sign On, Kubernetes
-Image: https://max-pfeiffer.github.io/blog/images/2025-02-28_oauth2_proxy_simplified-architecture.svg
+Image: https://max-pfeiffer.github.io/images/2025-02-28_oauth2_proxy_simplified-architecture.svg
 
 [Prometheus](https://prometheus.io/) and [Alertmanager](https://github.com/prometheus/alertmanager) come with a quite
 useful web user interface. But other than [Grafana](https://grafana.com/) there is no build in mechanism for user

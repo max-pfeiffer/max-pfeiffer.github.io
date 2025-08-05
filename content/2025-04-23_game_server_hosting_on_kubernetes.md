@@ -5,7 +5,7 @@ Date: 2025-04-23 13:00
 Author: Max Pfeiffer
 Lang: en
 Keywords: Game Server, UDP, kupe-vip, Kubernetes
-Image: https://max-pfeiffer.github.io/blog/images/2025-04-23_game_server_hosting_on_kubernetes.png
+Image: https://max-pfeiffer.github.io/images/2025-04-23_game_server_hosting_on_kubernetes.png
 
 Hosting game servers on Kubernetes is rather straight forward if you use the offerings of the main
 cloud providers like [AWS](https://aws.amazon.com/gametech/game-backend-infrastructure/)

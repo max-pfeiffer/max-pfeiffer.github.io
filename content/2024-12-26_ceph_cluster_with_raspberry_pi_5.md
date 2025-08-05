@@ -5,7 +5,7 @@ Date: 2024-12-26 10:00
 Author: Max Pfeiffer
 Lang: en
 Keywords: Ceph, Raspberry Pi, NVMe, SSD
-Image: https://max-pfeiffer.github.io/blog/images/2024-12-26_ceph_cluster.jpeg
+Image: https://max-pfeiffer.github.io/images/2024-12-26_ceph_cluster.jpeg
 
 As described in an earlier article, I run a Kubernetes cluster on my
 [Proxmox VE hypervisor](https://www.proxmox.com/en/proxmox-virtual-environment/overview) using Talos Linux. For this

@@ -28,7 +28,7 @@ SOCIAL = (
     ("github", "https://github.com/max-pfeiffer"),
 )
 
-DEFAULT_PAGINATION = 10
+DEFAULT_PAGINATION = 50
 
 # Hyde theme
 PROFILE_IMAGE = "avatar.jpeg"
