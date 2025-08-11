@@ -6,6 +6,7 @@ Author: Max Pfeiffer
 Lang: en
 Keywords: Grafana, Keycloak, SSO, Single Sign On, Kubernetes
 Image: https://max-pfeiffer.github.io/images/2025-02-07_keycloak_client_scopes_evaluate.png
+original_url: blog/single-sign-on-sso-with-grafana-and-keycloak.html
 
 I am running [Keycloak](https://www.keycloak.org/) as identity provider in my Kubernetes cluster because I want to have
 Single Sign On (SSO) for all my applications I run there. In the last years the [Keycloak](https://www.keycloak.org/)

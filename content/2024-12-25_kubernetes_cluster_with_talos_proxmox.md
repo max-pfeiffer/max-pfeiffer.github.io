@@ -5,6 +5,7 @@ Date: 2024-12-25 15:00
 Author: Max Pfeiffer
 Lang: en
 Keywords: Infrastructure as Code, Kubernetes, Talos Linux, Proxmox VE, OpenTofu
+original_url: blog/provisioning-a-kubernetes-cluster-with-talos-linux-and-proxmox-ve-with-opentofu.html
 
 The whole story started for me when a colleague recommended [Talos Linux](https://www.talos.dev/) for building
 a Kubernetes cluster on bare metal some weeks ago.

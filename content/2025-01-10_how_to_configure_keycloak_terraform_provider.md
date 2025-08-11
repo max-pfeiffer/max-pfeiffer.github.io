@@ -6,6 +6,7 @@ Author: Max Pfeiffer
 Lang: en
 Keywords: Keycloak, OpenTofu, Terraform, Terraform Provider, bootstrapping, Kubernetes
 Image: https://max-pfeiffer.github.io/images/2025-01-10_keycloak_config_option.jpeg
+original_url: blog/how-to-configure-keycloak-terraform-provider-for-automated-provisioning.html
 
 The [Keycloak](https://www.keycloak.org/) software engineers decided
 [to introduce an admin service account for bootstrapping Keycloak](https://github.com/keycloak/keycloak/issues/9829#issuecomment-2109799158).

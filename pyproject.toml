@@ -12,6 +12,7 @@ pelican-seo = "1.4.0"
 pelican-injector = "1.0.0"
 minchin-pelican-plugins-nojekyll = "1.2.0"
 pelican-sitemap = {git = "https://github.com/max-pfeiffer/sitemap.git", rev = "bugfix/xml-header"}
+pelican-redirect = "2.1.0"
 
 [build-system]
 requires = ["poetry-core"]
