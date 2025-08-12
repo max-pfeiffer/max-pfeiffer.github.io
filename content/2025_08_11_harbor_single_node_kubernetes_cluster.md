@@ -117,3 +117,8 @@ An example machine configuration for Talos linux for using the Harbor image cach
               Qbe4oasc6VbesYbouqb1R0mjTUxGPlIvxn0=
               -----END CERTIFICATE-----
 ```
+
+## Related Articles
+
+* [Provisioning a Kubernetes Cluster with Talos Linux and Proxmox VE with OpenTofu]({filename}/2024-12-25_kubernetes_cluster_with_talos_proxmox.md) 
+* [How to Bootstrap a Certificate Authority in your Kubernetes Cluster]({filename}/2025-01-20_bootstrap_certificate_authority_for_kubernetes.md)
