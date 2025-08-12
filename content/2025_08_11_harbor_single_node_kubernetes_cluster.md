@@ -61,7 +61,7 @@ As I want to build a declarative, standalone, turnkey solution, I had to make th
 * Certificate authority (CA): bootstrapping and running a standalone CA is necessary to issue TLS certificates when
   deploying this in your local network environment only
 
-# Harbor Turnkey
+## Harbor Turnkey
 The result of these decisions is my new [Harbor Turnkey project](https://github.com/max-pfeiffer/harbor-turnkey) on
 GitHub. It's meant to be used in a homelab, dev or test environment as it is not run on a highly available Kubernetes
 installation and does not use highly available storage. But it can also easily be extended to support that.
