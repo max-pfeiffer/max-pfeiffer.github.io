@@ -5,7 +5,7 @@ Date: 2025-09-14 21:00
 Author: Max Pfeiffer
 Lang: en
 Keywords: Velero, Kubernetes, Backup, Restore, AWS  
-Image: https://max-pfeiffer.github.io/images/2025_09_14_velero_kubernetes_backup.png
+Image: https://max-pfeiffer.github.io/images/2025-09-14_velero_kubernetes_backup.png
 
 As I am running more and more stateful applications on my Kubernetes clusters, I saw the need to prioritize securing
 their data. I am not concerned about the Kubernetes objects as I have defined everything with infrastructure-as-code
@@ -41,7 +41,7 @@ backup with Velero because doing snapshots with Ceph on my own infrastructure ha
 breaks down completely, data of the snapshots is also lost. This is very unlikely to happen but there is Murphy's Law. 😀
 I will start playing a bit later with the snapshots after I secured my data.
 
-![2025_09_14_velero_kubernetes_backup.png]({static}/images/2025_09_14_velero_kubernetes_backup.png)
+![2025-09-14_velero_kubernetes_backup.png]({static}/images/2025-09-14_velero_kubernetes_backup.png)
 
 ## Prerequisites
 ### AWS Resources
