@@ -5,7 +5,7 @@ Date: 2025-08-11 16:00
 Author: Max Pfeiffer
 Lang: en
 Keywords: Harbor, Image Registry Cache, Kubernetes, Talos Linux, OpenTofu, Proxmox  
-Image: https://max-pfeiffer.github.io/images/2025_08_11_harbor_single_node_kubernetes_cluster.png
+Image: https://max-pfeiffer.github.io/images/2025-08-11_harbor_single_node_kubernetes_cluster.png
 
 While running and maintaining my Kubernetes cluster, I was facing a chicken-egg problem:
 when updating/restarting Kubernetes nodes, I hit the image pull limit of different container registries regularly.
@@ -32,7 +32,7 @@ Plus, it's a software with cloud native design and is easily installed on Kubern
 [provided Helm chart](https://github.com/goharbor/harbor-helm). There is also a
 [terraform-provider-harbor](https://github.com/goharbor/terraform-provider-harbor) maintained by the project's members.
 
-![2025_08_11_harbor_single_node_kubernetes_cluster.png]({static}/images/2025_08_11_harbor_single_node_kubernetes_cluster.png)
+![2025-08-11_harbor_single_node_kubernetes_cluster.png]({static}/images/2025-08-11_harbor_single_node_kubernetes_cluster.png)
 
 ## Kubernetes Single Node Cluster
 I want to have all my infrastructure as code (IaC). So I choose to deploy [Harbor](https://goharbor.io/) on a
