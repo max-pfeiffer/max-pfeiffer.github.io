@@ -183,3 +183,4 @@ to do some performance comparison between these two Ceph clusters.
 
 * [Configuring and using Ceph CSI Driver for Kubernetes]({filename}/2025-03-16_ceph_csi_driver.md)
 * [Overhauling my Ceph cluster ]({filename}/2025-05-10_overhauling_my_ceph_cluster.md)
+* [Overhauling my Ceph cluster (again)]({filename}/2025-10-01_overhauling_my_ceph_cluster_again.md)
