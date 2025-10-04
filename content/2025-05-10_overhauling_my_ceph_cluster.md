@@ -100,5 +100,6 @@ appliance at all. 😀
 
 * [Ceph Cluster with Raspberry Pi 5 and NVMe SSDs]({filename}/2024-12-26_ceph_cluster_with_raspberry_pi_5.md) 
 * [Configuring and using Ceph CSI Driver for Kubernetes]({filename}/2025-03-16_ceph_csi_driver.md)
+* [Overhauling my Ceph cluster (again)]({filename}/2025-10-01_overhauling_my_ceph_cluster_again.md)
 
 

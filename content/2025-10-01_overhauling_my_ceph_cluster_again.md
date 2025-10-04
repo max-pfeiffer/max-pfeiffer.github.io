@@ -66,3 +66,9 @@ across the new [Banana PI BPI-M7](https://www.banana-pi.org/en/banana-pi-sbcs/16
 the desired features: two 2.5GB ethernet ports, NVMe SSD adapter and more memory.
 This comes with a price tag of 220 Euro for the 16GB variant at AliExpress currently. So I rather might get one of these
 and try to grow my Ceph cluster with an additional Banana Pi node.
+
+## Related Articles
+
+* [Ceph Cluster with Raspberry Pi 5 and NVMe SSDs]({filename}/2024-12-26_ceph_cluster_with_raspberry_pi_5.md) 
+* [Configuring and using Ceph CSI Driver for Kubernetes]({filename}/2025-03-16_ceph_csi_driver.md)
+* [Overhauling my Ceph cluster]({filename}/2025-05-10_overhauling_my_ceph_cluster.md)
