@@ -21,7 +21,7 @@ are more on the pricy side. And browsing through all the new stuff on Waveshare 
 This way I could address the network throughput bottleneck I am currently facing as well. The downside of using this 
 HAT would be to put the operating system on the SD-Card again, which is not optimal.
 
-I decided to just go for USB power supplies eventually as this was the cheapest and less invasive solution I could do
+I decided to just go for USB power supplies eventually as this was the cheapest and least invasive solution I could do
 at this point. I already had one Raspberry Pi 5 power supply unit and an active cooler on my shelf. So I just 
 had to buy two more. Trying to place all three power supply units in my rack mounted socket strip, I noticed that these
 guys need their space. So it was not possible to put all three into that socket strip because they were interfering
@@ -31,7 +31,7 @@ with each other. So I just bought another socket strip for my rack. So I ended u
 * 3x [Raspberry Pi 5 active cooler](https://www.raspberrypi.com/products/active-cooler/)
 * 1x 10'' rack mounted socket strip
 
-![2025-09-27_overhauling_my_ceph_cluster_again_parts.jpeg]({static}/images/2025-09-27_overhauling_my_ceph_cluster_again_parts.jpeg)
+![2025-10-01_overhauling_my_ceph_cluster_again_parts.jpeg]({static}/images/2025-10-01_overhauling_my_ceph_cluster_again_parts.jpeg)
 
 ## Shutting down the Ceph cluster
 As a first step, I had to shut down my Ceph cluster. As I need to shut it down completely, data availability will be 
@@ -66,6 +66,12 @@ across the new [Banana PI BPI-M7](https://www.banana-pi.org/en/banana-pi-sbcs/16
 the desired features: two 2.5GB ethernet ports, NVMe SSD adapter and more memory.
 This comes with a price tag of 220 Euro for the 16GB variant at AliExpress currently. So I rather might get one of these
 and try to grow my Ceph cluster with an additional Banana Pi node.
+
+Another interesting option is the [UGREEN NASync DXP2800](https://nas-eu.ugreen.com/products/ugreen-nasync-dxp2800-nas-storage)
+NAS. It comes with an Intel N100 Quad-core CPU, 8GB DDR5 RAM and a 2.5Gb ethernet port. It can carry two NVMe SSDs
+internally and two more SATA drives in its two drive bays. I saw these ranging around 290 Euro. On these machines you
+can [install Debian on its eMMC flash memory drive](https://wiki.debian.org/InstallingDebianOn/Ugreen). And then add
+your Ceph installation ontop of it.
 
 ## Related Articles
 
