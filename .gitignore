@@ -179,3 +179,5 @@ output
 # SEO plugin
 seo_report.html
 
+# MacOs specific
+.DS_Store
