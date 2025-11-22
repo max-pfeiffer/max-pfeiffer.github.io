@@ -378,14 +378,14 @@ pelican = ">=4.8.0"
 
 [[package]]
 name = "pelican-redirect"
-version = "2.1.0"
+version = "3.0.0"
 description = "Redirect pages using meta http-equiv tags"
 optional = false
-python-versions = "<4.0,>=3.9.0"
+python-versions = "<4.0,>=3.10.0"
 groups = ["main"]
 files = [
-    {file = "pelican_redirect-2.1.0-py3-none-any.whl", hash = "sha256:13e2916539c18248fa9008377caeea6ef5070c0e77fabd52a1acf221f0205f77"},
-    {file = "pelican_redirect-2.1.0.tar.gz", hash = "sha256:311a18e17d4b5324a1363b0d2ccd42ef785a12f2ac7b6e5e753737942dfb6fb2"},
+    {file = "pelican_redirect-3.0.0-py3-none-any.whl", hash = "sha256:f70b99cbf315c24f77d642cfa8ae9bb47e4dbc822e660e3d170de2ca1a1f3ebf"},
+    {file = "pelican_redirect-3.0.0.tar.gz", hash = "sha256:44fdb03922c487be2fa776b0fb608c003ba012464e4a3dcd46baaeecd74a80d0"},
 ]
 
 [package.dependencies]
@@ -412,25 +412,21 @@ markdown = ["markdown (>=3.4)"]
 
 [[package]]
 name = "pelican-sitemap"
-version = "1.2.1"
+version = "1.2.2"
 description = "Pelican plugin to generate sitemap in plain-text or XML format"
 optional = false
 python-versions = "~=3.9"
 groups = ["main"]
-files = []
-develop = false
+files = [
+    {file = "pelican_sitemap-1.2.2-py3-none-any.whl", hash = "sha256:09ba150dd1b54ef855f18e7ec920160d7118e932e0dac1c6e8bf3a41e938e682"},
+    {file = "pelican_sitemap-1.2.2.tar.gz", hash = "sha256:93f72d035dd0ec2f5cee38b2766bbd7f6a54bf186635ae1261a6deac422dcfb7"},
+]
 
 [package.dependencies]
 pelican = ">=4.5"
 
 [package.extras]
 markdown = ["markdown (>=3.4)"]
-
-[package.source]
-type = "git"
-url = "https://github.com/max-pfeiffer/sitemap.git"
-reference = "bugfix/xml-header"
-resolved_reference = "128c46de99736c3dd76f9e39a958cbd98ac197db"
 
 [[package]]
 name = "pygments"
@@ -679,4 +675,4 @@ anyio = ">=3.0.0"
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.12"
-content-hash = "de0ddfcf61d3aeae1f792350d05e4678c04d71cf2e7044e964294ce6148b44ce"
+content-hash = "9126f3692938030d323e08b67b657e25173152d7d6a193b83ff741b1f3068c98"
