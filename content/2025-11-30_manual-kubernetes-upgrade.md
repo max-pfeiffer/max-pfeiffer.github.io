@@ -142,3 +142,7 @@ Check on the nodes:
 kubectl get nodes
 ```
 All nodes should be in status ready with the new Kubernetes version.
+
+## Related Articles
+
+* [Installing Kubernetes on Debian 13 Trixie]({filename}/2025-11-21_manual_kubernetes-Install.md)

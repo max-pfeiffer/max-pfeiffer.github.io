@@ -269,3 +269,7 @@ plane node with `kubeadm join`.
 
 When you work with virtual machines on a hypervisor, you probably want to make use of templates to ease your work here.
 I was doing this just for the sake of getting some practice with `kubeadm`. 
+
+## Related Articles
+
+* [Upgrading Kubernetes on Debian 13 Trixie]({filename}/2025-11-30_manual-kubernetes-upgrade.md)
