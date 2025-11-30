@@ -15,16 +15,18 @@ Kubernetes bootstrapping process.
 
 But I need some more practice with `kubeadm` for doing the certification, so I choose to bootstrap a Kubernetes
 cluster with that tooling as well. The process is documented quite well [in the official Kubernetes documentation](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/).
-I wrote this article mainly to capture my learning. Also, I found some more background information that I added here
-so that article provides a bit more value than the official documentation.
+I wrote this article mainly to capture my learning. I found some more background information that I added here
+so that article provides a bit more value than the official documentation. Also, I added some more details on how to
+practically do the installation on a Debian system.
 
 I manually provisioned three virtual machines with Debian 13. One for a control plane and the other two for worker nodes.
 [Kubernetes nodes can be configured to utilize swap memory, but that comes with some caveats.](https://kubernetes.io/docs/concepts/cluster-administration/swap-memory-management/)
 If you don't plan to use swap memory later, you can provision your virtual machines without swap in the first place.
 Then you don't need to switch it off later.
 
-Here I install with v1.33.5 an old version of Kubernetes. The reason for this is that I would like to upgrade that
-cluster manually with `kubeadm` at some later point.
+Here I install with v1.33.5 an older version of Kubernetes. The reason for this is that I would like to upgrade that
+cluster manually with `kubeadm` at some later point. So if you want to install a cluster running the latest Kubernetes,
+[check for the latest release](https://github.com/kubernetes/kubernetes/releases) and use that version.
 
 ![2025-11-21_manual_kubernetes-Install.png]({static}/images/2025-11-21_manual_kubernetes-Install.png)
 
@@ -65,7 +67,8 @@ I will use [Cilium](https://cilium.io/) as CNI for this Kubernetes cluster.
 Reading through the [Cilium documentation](https://docs.cilium.io/en/stable/network/concepts/routing/)
 and [Kubernetes documentation](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#prerequisite-ipv4-forwarding-optional)
 I came to the conclusion that enabling the IPv4 packet forwarding might not be needed as [Cilium](https://cilium.io/)
-takes care of it on its own behalf. But I include this step here just to be complete.
+takes care of it on its own behalf. But during installation I noticed that `kubeadm` is actually checking for this 
+setting in its pre-flight checks before installation. So you need to add it at this point.
 
 First load kernel drivers to make sure they are present before changing the config:
 ```shell
@@ -147,8 +150,8 @@ apt install helm
 ```
 
 ### Install Kubernetes
-We will install Kubernetes now.
-Add v1.33 Kubernetes apt repository: 
+We will install Kubernetes now. It's recommended to use the [community owned package repositories](https://kubernetes.io/blog/2023/08/15/pkgs-k8s-io-introduction/).
+You need to add them as they are not available on Debian be default. So we add the v1.33 Kubernetes apt repository: 
 ```shell
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.33/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.33/deb/ /' | tee /etc/apt/sources.list.d/kubernetes.list
@@ -156,8 +159,7 @@ apt update
 ```
 Install kubeadm, kubelet and kubectl:
 ```shell
-KUBERNETES_VERSION=1.33.5-1.1
-apt install -y kubeadm=$KUBERNETES_VERSION kubelet=$KUBERNETES_VERSION kubectl=$KUBERNETES_VERSION
+apt install -y kubeadm=1.33.5-1.1 kubelet=1.33.5-1.1 kubectl=1.33.5-1.1
 ```
 Pin the versions for kubeadm, kubelet and kubectl to prevent accidental upgrades:
 ```shell
@@ -183,7 +185,7 @@ Add also the other two worker nodes. So it looks like this eventually:
 192.168.20.212	debian-worker-2.lan	debian-worker-2
 ```
 
-Initialize the cluster:
+[Initialize the control plane node](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#initializing-your-control-plane-node):
 ```shell
 kubeadm init --kubernetes-version 1.33.5 --control-plane-endpoint debian-k8s-endpoint
 ```
@@ -259,3 +261,11 @@ NAME                    STATUS     ROLES           AGE   VERSION
 debian-controlplane-1   Ready      control-plane   15h   v1.33.5
 debian-worker-1         Ready      <none>          17s   v1.33.5
 ```
+
+## Additional Control Plane and Worker Nodes
+If you want to add additional control plane or worker nodes, just add a new machine as described above for any
+additional node. Please be aware that you need to add `--control-plane` as an option when you want to join a control
+plane node with `kubeadm join`.
+
+When you work with virtual machines on a hypervisor, you probably want to make use of templates to ease your work here.
+I was doing this just for the sake of getting some practice with `kubeadm`. 
