@@ -5,7 +5,7 @@ Date: 2025-11-30 12:00
 Author: Max Pfeiffer
 Lang: en
 Keywords: Kubernetes, kubeadm, Debian
-Image: https://max-pfeiffer.github.io/images/2025-11-21_manual_kubernetes-Install.png
+Image: https://max-pfeiffer.github.io/images/2025-11-30_manual-kubernetes-upgrade.png
 
 In an [earlier article]({filename}/2025-11-21_manual_kubernetes-Install.md) I described how to install a Kubernetes
 cluster manually with `kubeadm`. In this article, I will explain how to upgrade that cluster. As an operating system,
