@@ -19,7 +19,7 @@ I wrote this article mainly to capture my learning. I found some more background
 so that article provides a bit more value than the official documentation. Also, I added some more details on how to
 practically do the installation on a Debian system.
 
-I manually provisioned three virtual machines with Debian 13. One for a control plane and the other two for worker nodes.
+I manually provisioned three virtual machines with Debian 13 on my hypervisor. One for a control plane and the other two for worker nodes.
 [Kubernetes nodes can be configured to utilize swap memory, but that comes with some caveats.](https://kubernetes.io/docs/concepts/cluster-administration/swap-memory-management/)
 If you don't plan to use swap memory later, you can provision your virtual machines without swap in the first place.
 Then you don't need to switch it off later.
@@ -226,8 +226,7 @@ We do not need to install kubectl and Helm.
 ### Install Kubernetes
 Install kubeadm and kubelet:
 ```shell
-KUBERNETES_VERSION=1.33.5-1.1
-apt install -y kubeadm=$KUBERNETES_VERSION kubelet=$KUBERNETES_VERSION
+apt install -y kubeadm=1.33.5-1.1 kubelet=1.33.5-1.1
 ```
 Pin the versions for kubeadm and kubelet to prevent accidental upgrades:
 ```shell
