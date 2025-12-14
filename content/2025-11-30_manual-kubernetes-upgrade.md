@@ -61,10 +61,11 @@ apt-mark unhold kubeadm
 apt install -y kubeadm=1.34.1-1.1
 apt-mark hold kubeadm
 ```
+We pin the kubelet version again to prevent accidental upgrades of that package.
 
 Verify the upgrade plan:
 ```shell
-kubeadm upgrade plan
+kubeadm upgrade plan v1.34.1
 ```
 
 If everything looks good, upgrade the control plane:
