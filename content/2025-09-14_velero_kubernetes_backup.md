@@ -198,8 +198,8 @@ spec:
 with Velero CLI is rather straight forward and well documented. So I will not go into details here. With the CLI tool
 you can quickly back up and restore a namespace to further test your setup:
 ```shell
-$ velero create backup test --include-namespace applications
-$ velero restore create --from-backupo test
+$ velero create backup test --include-namespaces applications
+$ velero restore create --from-backup test
 ```
 I would like to point out option `-o` for create command, which comes in handy for creating .yaml files for GitOps.
 For example, a backup Schedule for `applications` namespace:
