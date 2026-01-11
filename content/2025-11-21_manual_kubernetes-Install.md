@@ -28,6 +28,11 @@ Here I install with v1.33.5 an older version of Kubernetes. The reason for this 
 cluster manually with `kubeadm` at some later point. So if you want to install a cluster running the latest Kubernetes,
 [check for the latest release](https://github.com/kubernetes/kubernetes/releases) and use that version.
 
+If you happen to run a [Proxmox VE](https://www.proxmox.com/en/products/proxmox-virtual-environment/overview)
+hypervisor and/or are in interested to provision Kubernetes clusters with
+infrastructure as code, have a look at my [proxmox-talos-opentofu](https://github.com/max-pfeiffer/proxmox-talos-opentofu)
+project where I provide a turnkey Kubernetes cluster that you will have up and running in minutes on your own hardware. 
+
 ![2025-11-21_manual_kubernetes-Install.png]({static}/images/2025-11-21_manual_kubernetes-Install.png)
 
 ## Control Plane
@@ -62,7 +67,7 @@ swapon --show
 ```
 Swap should be turned off now.
 
-### Enable IPv4 packet forwarding
+### Enable support for IPv4 packet forwarding and bridged network traffic
 I will use [Cilium](https://cilium.io/) as CNI for this Kubernetes cluster.
 Reading through the [Cilium documentation](https://docs.cilium.io/en/stable/network/concepts/routing/)
 and [Kubernetes documentation](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#prerequisite-ipv4-forwarding-optional)
@@ -70,7 +75,28 @@ I came to the conclusion that enabling the IPv4 packet forwarding might not be n
 takes care of it on its own behalf. But during installation I noticed that `kubeadm` is actually checking for this 
 setting in its pre-flight checks before installation. So you need to add it at this point.
 
-First load kernel drivers to make sure they are present before changing the config:
+For Kube Proxy to work we also need to enable bridged network traffic on the node. This is necessary for:
+1. **Traffic Filtering**: By enabling this setting, iptables can monitor and filter the traffic that passes through
+   the bridge, allowing for proper enforcement of network policies and security measures.
+2. **Network Policies**: In Kubernetes, you might implement network policies to control the flow of traffic to and
+   from pods. For these policies to work correctly, iptables needs to be aware of the bridged traffic.
+3. **Inter-Node Communication**: When a pod on one node communicates with a pod on another node, the traffic is
+   typically routed through a bridge. Setting this parameter to 1 ensures that iptables rules are applied, allowing
+   for effective communication and security.
+
+First we check if the required kernel drivers are loaded already. You should see those drivers listed if they are
+already loaded:
+```shell
+$ lsmod | grep -e overlay -e br_netfilter
+```
+If drivers are not loaded make sure they are loaded when the node restarts with:
+```shell
+cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf 
+overlay
+br_netfilter
+EOF
+```
+And load kernel drivers to make sure they are present before changing the config:
 ```shell
 modprobe overlay
 modprobe br-netfilter
@@ -272,3 +298,4 @@ I was doing this just for the sake of getting some practice with `kubeadm`.
 ## Related Articles
 
 * [Upgrading Kubernetes on Debian 13 Trixie]({filename}/2025-11-30_manual-kubernetes-upgrade.md)
+* [Provisioning a Kubernetes Cluster with Talos Linux and Proxmox VE with OpenTofu]({filename}/2024-12-25_kubernetes_cluster_with_talos_proxmox.md)
