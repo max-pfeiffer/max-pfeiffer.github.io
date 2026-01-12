@@ -72,8 +72,8 @@ I will use [Cilium](https://cilium.io/) as CNI for this Kubernetes cluster.
 Reading through the [Cilium documentation](https://docs.cilium.io/en/stable/network/concepts/routing/)
 and [Kubernetes documentation](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#prerequisite-ipv4-forwarding-optional)
 I came to the conclusion that enabling the IPv4 packet forwarding might not be needed as [Cilium](https://cilium.io/)
-takes care of it on its own behalf. But during installation I noticed that `kubeadm` is actually checking for this 
-setting in its pre-flight checks before installation. So you need to add it at this point.
+takes care of it on its own behalf. But during installation I noticed that `kubeadm` is actually checking for 
+`net.ipv4.ip_forward` setting in its pre-flight checks before installation. So you need to add it at this point.
 
 For Kube Proxy to work we also need to enable bridged network traffic on the node. This is necessary for:
 1. **Traffic Filtering**: By enabling this setting, iptables can monitor and filter the traffic that passes through
@@ -153,15 +153,16 @@ Now we need to create and modify the config. There are two configuration changes
 1. [We need to use the systemd cgroup driver in /etc/containerd/config.toml with runc.](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd-systemd)
 2. [Update the reference for the sandbox pause image](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#override-pause-image-containerd)
 
+Create the containerd configuration and configure the usage of systemd cgroup driver: 
 ```shell
 containerd config default | tee /etc/containerd/config.toml
 sed -e 's/SystemdCgroup = false/SystemdCgroup = true/g' -i /etc/containerd/config.toml
 ```
+We will update the pause image to an up-to-date version in a later step after installing `kubeadm`.
 
-You can use `vim` to edit `/etc/containerd/config.toml` and set it to the up-to-date version.
-
-Then restart containerd and check its status:
+First you need to enable containerd so it is started when the node reboots. Then restart containerd and check its status:
 ```shell
+systemctl enable containerd
 systemctl restart containerd
 systemctl status containerd
 ```
@@ -190,6 +191,24 @@ apt install -y kubeadm=1.33.5-1.1 kubelet=1.33.5-1.1 kubectl=1.33.5-1.1
 Pin the versions for kubeadm, kubelet and kubectl to prevent accidental upgrades:
 ```shell
 apt-mark hold kubelet kubeadm kubectl
+```
+
+To find the right version of the pause image (see above) let's list the images we will use for the installation:
+```shell
+kubeadm config images list
+I0112 20:47:18.150276 1364047 version.go:260] remote version is much newer: v1.35.0; falling back to: stable-1.33
+registry.k8s.io/kube-apiserver:v1.33.5
+registry.k8s.io/kube-controller-manager:1.33.5
+registry.k8s.io/kube-scheduler:1.33.5
+registry.k8s.io/kube-proxy:1.33.5
+registry.k8s.io/coredns/coredns:v1.12.1
+registry.k8s.io/pause:3.10.1
+registry.k8s.io/etcd:3.6.4-0
+```
+Use `vim` to edit `/etc/containerd/config.toml` and set the pause image to the up-to-date version. Restart
+containerd afterwards:
+```shell
+systemctl restart containerd
 ```
 
 If you assigned a static IP to you machine, Debian by default already added an entry for it in `/etc/hosts`.
