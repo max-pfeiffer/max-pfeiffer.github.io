@@ -28,6 +28,11 @@ Here I install with v1.33.5 an older version of Kubernetes. The reason for this 
 cluster manually with `kubeadm` at some later point. So if you want to install a cluster running the latest Kubernetes,
 [check for the latest release](https://github.com/kubernetes/kubernetes/releases) and use that version.
 
+If you happen to run a [Proxmox VE](https://www.proxmox.com/en/products/proxmox-virtual-environment/overview)
+hypervisor and/or are in interested to provision Kubernetes clusters with
+infrastructure as code, have a look at my [proxmox-talos-opentofu](https://github.com/max-pfeiffer/proxmox-talos-opentofu)
+project where I provide a turnkey Kubernetes cluster that you will have up and running in minutes on your own hardware. 
+
 ![2025-11-21_manual_kubernetes-Install.png]({static}/images/2025-11-21_manual_kubernetes-Install.png)
 
 ## Control Plane
@@ -62,15 +67,36 @@ swapon --show
 ```
 Swap should be turned off now.
 
-### Enable IPv4 packet forwarding
+### Enable support for IPv4 packet forwarding and bridged network traffic
 I will use [Cilium](https://cilium.io/) as CNI for this Kubernetes cluster.
 Reading through the [Cilium documentation](https://docs.cilium.io/en/stable/network/concepts/routing/)
 and [Kubernetes documentation](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#prerequisite-ipv4-forwarding-optional)
 I came to the conclusion that enabling the IPv4 packet forwarding might not be needed as [Cilium](https://cilium.io/)
-takes care of it on its own behalf. But during installation I noticed that `kubeadm` is actually checking for this 
-setting in its pre-flight checks before installation. So you need to add it at this point.
+takes care of it on its own behalf. But during installation I noticed that `kubeadm` is actually checking for 
+`net.ipv4.ip_forward` setting in its pre-flight checks before installation. So you need to add it at this point.
 
-First load kernel drivers to make sure they are present before changing the config:
+For Kube Proxy to work we also need to enable bridged network traffic on the node. This is necessary for:
+1. **Traffic Filtering**: By enabling this setting, iptables can monitor and filter the traffic that passes through
+   the bridge, allowing for proper enforcement of network policies and security measures.
+2. **Network Policies**: In Kubernetes, you might implement network policies to control the flow of traffic to and
+   from pods. For these policies to work correctly, iptables needs to be aware of the bridged traffic.
+3. **Inter-Node Communication**: When a pod on one node communicates with a pod on another node, the traffic is
+   typically routed through a bridge. Setting this parameter to 1 ensures that iptables rules are applied, allowing
+   for effective communication and security.
+
+First we check if the required kernel drivers are loaded already. You should see those drivers listed if they are
+already loaded:
+```shell
+$ lsmod | grep -e overlay -e br_netfilter
+```
+If drivers are not loaded make sure they are loaded when the node restarts with:
+```shell
+cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf 
+overlay
+br_netfilter
+EOF
+```
+And load kernel drivers to make sure they are present before changing the config:
 ```shell
 modprobe overlay
 modprobe br-netfilter
@@ -127,15 +153,16 @@ Now we need to create and modify the config. There are two configuration changes
 1. [We need to use the systemd cgroup driver in /etc/containerd/config.toml with runc.](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd-systemd)
 2. [Update the reference for the sandbox pause image](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#override-pause-image-containerd)
 
+Create the containerd configuration and configure the usage of systemd cgroup driver: 
 ```shell
 containerd config default | tee /etc/containerd/config.toml
 sed -e 's/SystemdCgroup = false/SystemdCgroup = true/g' -i /etc/containerd/config.toml
 ```
+We will update the pause image to an up-to-date version in a later step after installing `kubeadm`.
 
-You can use `vim` to edit `/etc/containerd/config.toml` and set it to the up-to-date version.
-
-Then restart containerd and check its status:
+First you need to enable containerd so it is started when the node reboots. Then restart containerd and check its status:
 ```shell
+systemctl enable containerd
 systemctl restart containerd
 systemctl status containerd
 ```
@@ -164,6 +191,24 @@ apt install -y kubeadm=1.33.5-1.1 kubelet=1.33.5-1.1 kubectl=1.33.5-1.1
 Pin the versions for kubeadm, kubelet and kubectl to prevent accidental upgrades:
 ```shell
 apt-mark hold kubelet kubeadm kubectl
+```
+
+To find the right version of the pause image (see above) let's list the images we will use for the installation:
+```shell
+kubeadm config images list
+I0112 20:47:18.150276 1364047 version.go:260] remote version is much newer: v1.35.0; falling back to: stable-1.33
+registry.k8s.io/kube-apiserver:v1.33.5
+registry.k8s.io/kube-controller-manager:1.33.5
+registry.k8s.io/kube-scheduler:1.33.5
+registry.k8s.io/kube-proxy:1.33.5
+registry.k8s.io/coredns/coredns:v1.12.1
+registry.k8s.io/pause:3.10.1
+registry.k8s.io/etcd:3.6.4-0
+```
+Use `vim` to edit `/etc/containerd/config.toml` and set the pause image to the up-to-date version. Restart
+containerd afterwards:
+```shell
+systemctl restart containerd
 ```
 
 If you assigned a static IP to you machine, Debian by default already added an entry for it in `/etc/hosts`.
@@ -272,3 +317,4 @@ I was doing this just for the sake of getting some practice with `kubeadm`.
 ## Related Articles
 
 * [Upgrading Kubernetes on Debian 13 Trixie]({filename}/2025-11-30_manual-kubernetes-upgrade.md)
+* [Provisioning a Kubernetes Cluster with Talos Linux and Proxmox VE with OpenTofu]({filename}/2024-12-25_kubernetes_cluster_with_talos_proxmox.md)
