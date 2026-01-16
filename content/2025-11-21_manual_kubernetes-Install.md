@@ -76,6 +76,7 @@ takes care of it on its own behalf. But during installation I noticed that `kube
 `net.ipv4.ip_forward` setting in its pre-flight checks before installation. So you need to add it at this point.
 
 For Kube Proxy to work we also need to enable bridged network traffic on the node. This is necessary for:
+
 1. **Traffic Filtering**: By enabling this setting, iptables can monitor and filter the traffic that passes through
    the bridge, allowing for proper enforcement of network policies and security measures.
 2. **Network Policies**: In Kubernetes, you might implement network policies to control the flow of traffic to and
