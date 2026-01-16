@@ -1,10 +1,13 @@
 Title: Switching to Cilium as Container Network Interface (CNI) for my bare metal Kubernetes Clusters
-Description: Making use of L2 Announcements, LB IPAM, Ingress controller and Gateway API support on Talos Linux
-Summary: Making use of L2 Announcements, LB IPAM, Ingress controller and Gateway API support on Talos Linux
+Description: Making use of L2 Announcements, LB IPAM, Ingress controller and Gateway API on Talos Linux
+Summary: Making use of L2 Announcements, LB IPAM, Ingress controller and Gateway API on Talos Linux
 Date: 2026-01-16 12:00
 Author: Max Pfeiffer
 Lang: en
 Keywords: Cilium, Kubernetes, Gateway API, L2 Announcement, LB IPAM
+Image: https://max-pfeiffer.github.io/images/2026-01-14_switching_to_cilium_cni.png
+
+![Cilium website]({static}/images/2026-01-14_switching_to_cilium_cni.png)
 
 I was looking at [Cilium](https://cilium.io/) already for quite a while and was digging through its 
 [documentation](https://docs.cilium.io/en/stable/). I spotted a couple of features which are particularly useful
