@@ -179,7 +179,7 @@ apt install helm
 
 ### Install Kubernetes
 We will install Kubernetes now. It's recommended to use the [community owned package repositories](https://kubernetes.io/blog/2023/08/15/pkgs-k8s-io-introduction/).
-You need to add them as they are not available on Debian be default. So we add the v1.33 Kubernetes apt repository: 
+You need to add them as they are not available on Debian by default. So we add the v1.33 Kubernetes apt repository: 
 ```shell
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.33/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.33/deb/ /' | tee /etc/apt/sources.list.d/kubernetes.list
