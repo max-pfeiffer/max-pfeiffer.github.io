@@ -16,7 +16,7 @@ on GitHub.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/fjNOYHrfVDE?si=Rrfm2tF8x_jXPi-L" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> 
 
 [Talos Linux](https://www.talos.dev/) is a special Linux distribution geared towards its only purpose which is
-providing a platform for Kubernetes. It comes with an API which can be utilized for provision and configure the OS
+providing a platform for Kubernetes. It comes with an API which can be utilized to provision and configure the OS
 installation and the Kubernetes cluster. That makes it an ideal partner for provisioning Tools like
 [OpenTofu](https://opentofu.org/) or Terraform. Consequently, there is no direct shell access to the Talos
 machines. The company behind [Talos Linux](https://www.talos.dev/) is [Siderolabs](https://www.siderolabs.com/).
