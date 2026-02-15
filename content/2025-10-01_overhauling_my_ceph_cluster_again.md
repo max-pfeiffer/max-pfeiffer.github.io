@@ -59,6 +59,8 @@ Lastly, I put the socket strip into the 10'' rack together with the power supply
 I was checking the Ceph cluster's dashboard and was happy to see that everything was running smoothly again.
 And I noticed something crucial ... silence!
 
+![2025-10-01_overhauling_my_ceph_cluster_again_result.jpeg]({static}/images/2025-10-01_overhauling_my_ceph_cluster_again_result.jpeg)
+
 ## Outlook
 I am not sure if I will tinker around with the Raspberrys more than I did already. There are some interesting upgrade
 options that I mentioned earlier. But after looking closer at some other single board computers out there, I stumbled 
