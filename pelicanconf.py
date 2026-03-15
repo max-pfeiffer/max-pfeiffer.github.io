@@ -44,7 +44,7 @@ LOGO = "https://max-pfeiffer.github.io/blog/images/avatar.jpeg"
 
 # Sitemap plugin
 SITEMAP = {
-    "format": "txt",
+    "format": "xml",
     "priorities": {
         "articles": 0.9,
         "indexes": 1.0,
