@@ -289,19 +289,23 @@ test = ["pytest"]
 
 [[package]]
 name = "minchin-pelican-plugins-nojekyll"
-version = "1.2.0"
+version = "1.2.1"
 description = "Pelican plugin that adds a `.nojekyll` file to the output root. Useful for publishing to Github Pages. Written in Python."
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "minchin.pelican.plugins.nojekyll-1.2.0-py3-none-any.whl", hash = "sha256:4d396adebcf93fd6f540149ad9f712a11d901e151581d7d4b0006e51d165d886"},
-    {file = "minchin.pelican.plugins.nojekyll-1.2.0.tar.gz", hash = "sha256:b37acf1f68e5fd5deffddc326fb14c9955d05c2e67054b49dd6f53e7137897fb"},
+    {file = "minchin_pelican_plugins_nojekyll-1.2.1-py3-none-any.whl", hash = "sha256:ff80998a878bb689851d21bfb858fcd0f31fb56892efc781ee0bb896a348375b"},
+    {file = "minchin_pelican_plugins_nojekyll-1.2.1.tar.gz", hash = "sha256:1b362af0a435be193ac5b210db52fd01bc7252646d7f51dfdb765e3d24a24b29"},
 ]
 
 [package.dependencies]
 "minchin.pelican.plugins.autoloader" = "!=1.2.0"
 pelican = "*"
+
+[package.extras]
+build = ["minchin.releaser (>=0.8.2)"]
+lint = ["black", "isort"]
 
 [[package]]
 name = "ordered-set"
@@ -416,16 +420,20 @@ description = "Pelican plugin to generate sitemap in plain-text or XML format"
 optional = false
 python-versions = "~=3.9"
 groups = ["main"]
-files = [
-    {file = "pelican_sitemap-1.2.2-py3-none-any.whl", hash = "sha256:09ba150dd1b54ef855f18e7ec920160d7118e932e0dac1c6e8bf3a41e938e682"},
-    {file = "pelican_sitemap-1.2.2.tar.gz", hash = "sha256:93f72d035dd0ec2f5cee38b2766bbd7f6a54bf186635ae1261a6deac422dcfb7"},
-]
+files = []
+develop = false
 
 [package.dependencies]
 pelican = ">=4.5"
 
 [package.extras]
 markdown = ["markdown (>=3.4)"]
+
+[package.source]
+type = "git"
+url = "https://github.com/max-pfeiffer/sitemap.git"
+reference = "bugfix/dateformat-and-duplicate-entries"
+resolved_reference = "f1385e367af5ed8c2ff80bf3c8a85e4d757a0fca"
 
 [[package]]
 name = "pygments"
@@ -459,14 +467,14 @@ six = ">=1.5"
 
 [[package]]
 name = "rich"
-version = "14.3.2"
+version = "14.3.3"
 description = "Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal"
 optional = false
 python-versions = ">=3.8.0"
 groups = ["main"]
 files = [
-    {file = "rich-14.3.2-py3-none-any.whl", hash = "sha256:08e67c3e90884651da3239ea668222d19bea7b589149d8014a21c633420dbb69"},
-    {file = "rich-14.3.2.tar.gz", hash = "sha256:e712f11c1a562a11843306f5ed999475f09ac31ffb64281f73ab29ffdda8b3b8"},
+    {file = "rich-14.3.3-py3-none-any.whl", hash = "sha256:793431c1f8619afa7d3b52b2cdec859562b950ea0d4b6b505397612db8d5362d"},
+    {file = "rich-14.3.3.tar.gz", hash = "sha256:b8daa0b9e4eef54dd8cf7c86c03713f53241884e814f4e2f5fb342fe520f639b"},
 ]
 
 [package.dependencies]
@@ -662,4 +670,4 @@ anyio = ">=3.0.0"
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.12"
-content-hash = "9126f3692938030d323e08b67b657e25173152d7d6a193b83ff741b1f3068c98"
+content-hash = "c36803ce1018d2325dc6dcf2fa7b1a38f55ee3580cdc5127813a4847b4936d96"
