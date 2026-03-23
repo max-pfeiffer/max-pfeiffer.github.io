@@ -152,4 +152,3 @@ Migrating to Cilium was a very smooth experience overall. Using the
 running in no time. I could then take my time to do the transition to [Gateway API](https://gateway-api.sigs.k8s.io/).
 Cilium provides great features which are working flawlessly so far for me. So I encourage everyone to give
 [Cilium](https://cilium.io/) a closer look and do a transition as well.
-

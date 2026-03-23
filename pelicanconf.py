@@ -32,7 +32,7 @@ DEFAULT_PAGINATION = 50
 
 # Hyde theme
 PROFILE_IMAGE = "avatar.jpeg"
-FOOTER_TEXT = "© 2025 Max Pfeiffer"
+FOOTER_TEXT = "© 2026 Max Pfeiffer"
 
 # SEO Plugin
 SEO_REPORT = False

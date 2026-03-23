@@ -139,3 +139,8 @@ Gateway which you configured resolving these ACME challenges.
 
 You can find a full working example in [the `argocd` section](https://github.com/max-pfeiffer/proxmox-talos-opentofu/tree/main/argocd)
 of my turnkey Kubernetes cluster project.
+
+## Related Articles
+
+* [How to Bootstrap a Certificate Authority in your Kubernetes Cluster]({filename}/2025-01-20_bootstrap_certificate_authority_for_kubernetes.md)
+
