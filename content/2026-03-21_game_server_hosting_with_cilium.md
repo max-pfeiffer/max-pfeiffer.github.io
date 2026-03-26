@@ -5,7 +5,7 @@ Date: 2026-03-21 13:00
 Author: Max Pfeiffer
 Lang: en
 Keywords: Game Server, UDP, Cilium, Kubernetes
-Image: https://max-pfeiffer.github.io/images/2025-04-23_game_server_hosting_on_kubernetes.png
+Image: https://max-pfeiffer.github.io/images/2026-03-21_game_server_hosting_with_cilium.png
 
 Last year [I switched to Cilium as CNI for my Kubernetes clusters]({filename}/2026-01-14_switching_to_cilium_cni.md).
 That proved to be a very good experience in overall. And I am still very happy about the features
