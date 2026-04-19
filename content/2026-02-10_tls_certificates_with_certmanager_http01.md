@@ -23,27 +23,27 @@ I saw that I can configure automated TLS certificate generation using the HTTP01
 in my cluster without any external dependencies. So I choose to do that in the first place. The disadvantage of using
 the HTTP01 challenge is that you cannot create wildcard TLS certificates with it. 
 
-[cert-manager](https://cert-manager.io/) offers the option to configure doing the HTTP01 challenge
+[cert-manager](https://cert-manager.io/) offers the option to configure the HTTP01 challenge
 [using an Ingress solver](https://cert-manager.io/docs/configuration/acme/http01/#configuring-the-http01-ingress-solver)
 or [a Gateway API solver](https://cert-manager.io/docs/configuration/acme/http01/#configuring-the-http-01-gateway-api-solver).
 As [I did switch my clusters to Cilium and Gateway API already]({filename}/2026-01-14_switching_to_cilium_cni.md)
 I choose to go for the Gateway API solver option. Please be aware that Ingress API is already frozen and the
 [official recommendation is to use Gateway API nowadays](https://kubernetes.io/docs/concepts/services-networking/ingress/).
-So going for the Ingress solver is not really an option any more.
+So going for the Ingress solver is not really an option anymore.
 
 ## HTTP01 Challenge
 The HTTP01 challenge with Gateway API works like this:
 
-![2026-02-10_tls_certificates_with_certmanager_http01.png]({static}/images/2026-02-10_tls_certificates_with_certmanager_http01.png)
+![2026-02-10_tls_certificates_with_certmanager_http01.jpg]({static}/images/2026-02-10_tls_certificates_with_certmanager_http01.jpg)
 
 The complete process is as rather complex:
 
-1. You create a Certificate resource requesting a TLS certificate for a domain.
+1. You create a [Certificate resource](https://cert-manager.io/docs/usage/certificate/) in your applications namespace requesting a TLS certificate for a domain.
 2. cert-manager detects the request and creates an ACME Order with the ACME server (e.g. Let’s Encrypt).
 3. The ACME server returns an HTTP-01 Challenge for the domain.
-4. cert-manager creates a temporary solver Pod that can serve the challenge response.
+4. cert-manager creates a temporary solver Pod in your applications namespace that can serve the challenge response.
 5. cert-manager creates a temporary Service pointing to the solver Pod.
-6. cert-manager creates a temporary HTTPRoute that:
+6. cert-manager creates a temporary [HTTPRoute](https://gateway-api.sigs.k8s.io/api-types/httproute/) that:
       * Matches /.well-known/acme-challenge/*
       * Forwards traffic to the solver Service
       * Attaches to the configured Gateway
@@ -67,8 +67,11 @@ extraArgs:
 ```
 
 As you usually do not allow any non-HTTPS traffic to your cluster, I would consider it as good practice to have a
-special Gateway that specifically deals with these ACME challenges only. The only HTTPRoutes allowed to are the ones
-for the HTTP01 solver Pod/Service in cert-manager namespace. So you would configure a Gateway like this:
+dedicated [Gateway](https://gateway-api.sigs.k8s.io/api-types/gateway/) that specifically deals with these ACME
+challenges only. The only HTTPRoutes allowed to are the ones for the HTTP01 solver Pod/Service in the application
+namespaces. So you need to label your namespaces with `tls-certificates: http01` or something else which suits your
+needs. This way the Gateway can identify the namespace where it's allowed to create
+[Certificate resources](https://cert-manager.io/docs/usage/certificate/). So you would configure a Gateway like this:
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
@@ -89,10 +92,9 @@ spec:
         from: Selector
         selector:
           matchLabels:
-            kubernetes.io/metadata.name: cert-manager
+            tls-certificates: http01
 ```
-And route the incoming traffic for port 80 only to the specific IP address that you configured for it. You might also
-need to adjust to your namespace and GatewayClass setup for the Gateway configuration.
+For the incoming traffic on port 80 you need to add a route to the specific IP address that you configured for it.
 
 A ClusterIssuer using this Gateway would be configured like this:
 ```yaml
@@ -115,7 +117,24 @@ spec:
                 sectionName: http
                 kind: Gateway
 ```
-
+Please be aware that you need to create a [ReferenceGrant](https://gateway-api.sigs.k8s.io/api-types/referencegrant/)
+in the application namespace where the [Certificate resources](https://cert-manager.io/docs/usage/certificate/) are 
+placed if those namespaces differ.
+```yaml
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: argocd
+  namespace: argocd
+spec:
+  from:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    namespace: network
+  to:
+  - group: ""
+    kind: Secret
+```
 That's basically all what you need to configure to be able to issue TLS certificates. Which I think is really great.
 You could then create TLS certificates by configuring a Certificate resource like this in `network` namespace for
 instance:
@@ -124,7 +143,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: argocd
-  namespace: network
+  namespace: argocd
 spec:
   secretName: your-secret-name
   issuerRef:

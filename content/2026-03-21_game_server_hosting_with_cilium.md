@@ -126,3 +126,4 @@ spec:
 
 * [Switching to Cilium as Container Network Interface (CNI) for my bare metal Kubernetes Clusters]({filename}/2026-01-14_switching_to_cilium_cni.md)
 * [Hosting Game Servers on Bare Metal Kubernetes with kube-vip]({filename}/2025-04-23_game_server_hosting_on_kubernetes.md)
+* [How to set up a Valheim dedicated server using Docker and Docker Compose]({filename}/2026-03-23_valheim_dedicated_server_with_docker.md)
