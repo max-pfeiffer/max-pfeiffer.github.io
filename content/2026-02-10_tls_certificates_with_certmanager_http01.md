@@ -29,7 +29,8 @@ or [a Gateway API solver](https://cert-manager.io/docs/configuration/acme/http01
 As [I did switch my clusters to Cilium and Gateway API already]({filename}/2026-01-14_switching_to_cilium_cni.md)
 I choose to go for the Gateway API solver option. Please be aware that Ingress API is already frozen and the
 [official recommendation is to use Gateway API nowadays](https://kubernetes.io/docs/concepts/services-networking/ingress/).
-So going for the Ingress solver is not really an option anymore.
+So going for the Ingress solver is not really an option anymore unless you are already using Ingress widely in your
+cluster and cannot migrate so easily.
 
 ## HTTP01 Challenge
 The HTTP01 challenge with Gateway API works like this:
@@ -70,8 +71,9 @@ As you usually do not allow any non-HTTPS traffic to your cluster, I would consi
 dedicated [Gateway](https://gateway-api.sigs.k8s.io/api-types/gateway/) that specifically deals with these ACME
 challenges only. The only HTTPRoutes allowed to are the ones for the HTTP01 solver Pod/Service in the application
 namespaces. So you need to label your namespaces with `tls-certificates: http01` or something else which suits your
-needs. This way the Gateway can identify the namespace where it's allowed to create
-[Certificate resources](https://cert-manager.io/docs/usage/certificate/). So you would configure a Gateway like this:
+needs. This way the Gateway is restricted to the namespaces where it's allowed to create
+[HTTPRoutes](https://gateway-api.sigs.k8s.io/api-types/httproute/) for the ACME HTTP Solver Pods. In these Namespaces
+you can put [Certificate resources](https://cert-manager.io/docs/usage/certificate/) for requesting TLS certificates. So you would configure a Gateway like this:
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
@@ -136,8 +138,9 @@ spec:
     kind: Secret
 ```
 That's basically all what you need to configure to be able to issue TLS certificates. Which I think is really great.
-You could then create TLS certificates by configuring a Certificate resource like this in `network` namespace for
-instance:
+You could then create TLS certificates by configuring a Certificate resource like this in `argocd` namespace for
+instance. Please be aware that the `argocd` namespace needs to be labeled with `tls-certificates: http01` for a
+[CertificateRequest](https://cert-manager.io/docs/usage/certificaterequest/) to work:
 ```yaml
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -150,9 +153,9 @@ spec:
     name: letsencrypt-http01
     kind: ClusterIssuer
   dnsNames:
-  - "example.org"
+  - "argocd.yourdomain.com"
 ```
-Please be aware that you need to have the DNS resolution for `example.org` configured in the first place. DNS and
+Please be aware that you need to have the DNS resolution for `argocd.yourdomain.com` configured in the first place. DNS and
 routing for incoming network traffic on port 80 need to be configured so that requests for this domain will hit your
 Gateway which you configured resolving these ACME challenges.
 
