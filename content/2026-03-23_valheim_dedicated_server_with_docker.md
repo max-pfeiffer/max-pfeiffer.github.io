@@ -19,7 +19,7 @@ The guys from Iron Gate Studios actually did a very good job in providing the co
 [Valheim dedicated server guide](https://www.valheimgame.com/support/a-guide-to-dedicated-servers/).
 And they even provide a Docker setup in their Steam distribution. So you could just follow this and you are set.
 
-However I found that setup they are suggesting a bit labor intensive to maintain in the long run. I did not feel
+However, I found that setup they are suggesting a bit labor-intensive to maintain in the long run. I did not feel
 like tinkering around with the server setup after every software update: building a new Docker image, adapting that
 new image and restart the server using this new image. This would also mean to have a longer server downtime.
 
@@ -32,6 +32,12 @@ Valheim server update and build an image every day. This makes it possible to us
 it is always up-to-date. If you use the `latest` tag together with `pull_policy: always` in your docker compose file, 
 you can easily automate that server update using a shell script and a cron job.
 
+## Automated Docker Image Builds
+I built an automation which checks the Valheim public branch every night. If a new release was published by Kraken
+Express, a new Docker image will be built with this new version. Just use the latest tag and you will always have an 
+up-to-date Docker image. No need to manually run any server updates and mess around with your Docker image. 
+It's that simple. 😃
+
 ## Docker Volume
 Another detail that you need to be aware of is that the Valheim dedicated server is a 
 [stateful application](https://glossary.cncf.io/stateful-apps/) by design as it stores player and world data in the
@@ -39,7 +45,7 @@ file system. You can control the file system location with `-savedir` CLI option
 
 When you run an application in a Docker container the files in the Docker container are only persisted inside the container 
 as long as the container exists. So if you run a new Docker container with a new Valheim server version, all files
-in your `-savedir` location are gone. This is not what we want because we would loose all world and player data.
+in your `-savedir` location are gone. This is not what we want because we would lose all world and player data.
 
 With a [Docker Volume](https://docs.docker.com/storage/volumes/) you can overcome that issue. This enables you to persist the Valheim server data when
 you switch to new Docker images with new Valheim server versions. You need to mount that [Docker Volume](https://docs.docker.com/storage/volumes/)
@@ -54,7 +60,8 @@ user can access these files. This you need to do with an init container.
 
 ## Installation
 I put all this together in my [valheim-dedicated-server-docker-helm](https://github.com/max-pfeiffer/valheim-dedicated-server-docker-helm)
-project free for use for anyone. With this you will have your Valheim server up an running in a couple of minutes. It consists of:
+project free for use for anyone. With this you will have your Valheim server up and running in a couple of minutes.
+It consists of:
 
 * [secure Docker image for Valheim dedicated server on Docker Hub](https://hub.docker.com/r/pfeiffermax/valheim-dedicated-server)
 * [Docker compose file](https://github.com/max-pfeiffer/valheim-dedicated-server-docker-helm/blob/main/examples/docker-compose/compose.yaml)
@@ -67,7 +74,7 @@ Prerequisites:
 
 If you are not familiar with [git](https://git-scm.com/) and/or don't want to install it, you can download the
 [docker compose file](https://github.com/max-pfeiffer/valheim-dedicated-server-docker-helm/blob/main/examples/docker-compose/compose.yaml)
-manually from GitHub or just cut and paste it's contents.
+manually from GitHub or just cut and paste its contents.
 
 For the installing and running the Valheim server you need clone the git repository and start the Valheim server using docker compose:
 ```shell
