@@ -1,6 +1,6 @@
-Title: How to set up a Windrose dedicated server using Docker and Docker Compose 
-Description: A guide for setting up your own Windrose dedicated server using Docker and Docker Compose    
-Summary: A guide for setting up your own Windrose dedicated server using Docker and Docker Compose
+Title: A guide for setting up a Windrose dedicated server using Docker and Docker Compose 
+Description: A how-to guide for setting up your own Windrose dedicated server using Docker and Docker Compose    
+Summary: A how-to guide for setting up your own Windrose dedicated server using Docker and Docker Compose
 Date: 2026-04-28 20:00
 Author: Max Pfeiffer
 Lang: en
@@ -18,6 +18,8 @@ So what are we going to do? We need a dedicated Windrose server. So I looked for
 anything usable. Most of it was AI generated bullshit. Somehow usable but absolutely unmaintainable code and full of
 security flaws. There was also no automation for new image builds or server updates. So I decided once again to build my own.
 
+![2026-04-28_windrose_dedicated_server_with_docker.png]({static}/images/2026-04-28_windrose_dedicated_server_with_docker.png)
+
 I pulled the [depot from Steam](https://steamdb.info/app/4129620/depots/) and noticed that there is no Linux version
 only a Windows version. 😬 So I had a look at [Wine](https://www.winehq.org/) which is a compatibility layer for 
 running Windows applications on Linux. I also spent quite a while reverse engineering how that dedicated Server
@@ -30,8 +32,6 @@ complicated. So ended up building a Linux Docker image using the [Wine compatibi
 for running the Windows version of the Windrose server eventually.
 I have to say that was rather painful. I hope Kraken Express offers a Linux build of that server soon and optimizes the
 way of server configuration.
-
-![2026-04-28_windrose_dedicated_server_with_docker.png]({static}/images/2026-04-28_windrose_dedicated_server_with_docker.png)
 
 ## Automated Docker Image Builds
 I built an automation which checks the Windrose public branch every night. If a new release was published by Kraken
