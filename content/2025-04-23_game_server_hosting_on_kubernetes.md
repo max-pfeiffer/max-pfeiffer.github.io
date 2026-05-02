@@ -180,3 +180,4 @@ $ kubectl -n yournamespace get svc yourservice -o yaml
 
 * [Hosting Game Servers on Bare Metal Kubernetes with Cilium as CNI]({filename}/2026-03-21_game_server_hosting_with_cilium.md)
 * [How to set up a Valheim dedicated server using Docker and Docker Compose]({filename}/2026-03-23_valheim_dedicated_server_with_docker.md)
+* [A guide for setting up a Windrose dedicated server using Docker and Docker Compose]({filename}/2026-04-28_windrose_dedicated_server_with_docker.md)

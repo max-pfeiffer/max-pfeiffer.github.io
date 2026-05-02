@@ -105,3 +105,4 @@ For me it was safe to run the update job with cron at 06:00 in the morning:
 ## Related Articles
 
 * [Hosting Game Servers on Bare Metal Kubernetes with Cilium as CNI]({filename}/2026-03-21_game_server_hosting_with_cilium.md)
+* [A guide for setting up a Windrose dedicated server using Docker and Docker Compose]({filename}/2026-04-28_windrose_dedicated_server_with_docker.md)
