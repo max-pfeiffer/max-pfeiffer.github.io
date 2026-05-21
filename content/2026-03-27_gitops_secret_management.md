@@ -58,8 +58,8 @@ repository.
 This approach has some severe disadvantages. Users need to install and use the `kubeseal` CLI tool. For this you need
 to have direct cluster access with the operator exposed for the `kubeseal` CLI tool. This is undesirable especially when
 you run a multi tenant Kubernetes cluster. Also, the whole workflow for managing the secrets (CRUD operations) is
-manually done in the first place. This is cumbersome and time consuming.
-As you need to backup 
+manually done in the first place. This is cumbersome and time-consuming.
+
 
 
 ## External Secret Operators
