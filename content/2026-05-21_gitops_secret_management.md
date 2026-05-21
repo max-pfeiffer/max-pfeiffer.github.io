@@ -7,7 +7,7 @@ Lang: en
 Keywords: Kubernetes, GitOps, Secret, External Secrets Operator
 Image: https://max-pfeiffer.github.io/images/2026-05-21_gitops_secret_management.png
 
-As a professional DevOps engineer I used a couple of different approaches for maintaining [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
+As a professional DevOps engineer, I used a couple of different approaches for maintaining [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
 in Kubernetes clusters in the past. Ranging from
 
 * keeping them in an external secret store and adding them manually to the cluster
@@ -27,7 +27,7 @@ So what you want to do nowadays is destination cluster secret management. This w
 [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/) itself, instead the Secret handling is done by
 another [Operator](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/) especially dedicated to this task.
 The usage of an external secrets management solution like [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/)
-or [Hashicorp Vault](https://www.hashicorp.com/de/products/vault) has a couple of advantages:
+or [HashiCorp Vault](https://www.hashicorp.com/de/products/vault) has a couple of advantages:
 
 * RBAC for secrets
 * secure and encrypted location for your secrets
@@ -37,7 +37,7 @@ or [Hashicorp Vault](https://www.hashicorp.com/de/products/vault) has a couple o
 * users do not have to deal with secret encryption
 
 Plus in bigger companies dedicated teams usually run the secret management solution. They don't need to have
-Kubernetes know how.
+Kubernetes know-how.
 
 You can say that there are roughly three groups of [Operators](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/)
 which deal with Secrets differently. 
@@ -54,7 +54,7 @@ Using [Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets) you need 
 
 The `kubeseal` utility uses asymmetric crypto to encrypt secrets that only the controller can decrypt.
 These encrypted secrets are encoded in a `SealedSecret` [Custom Resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/),
-which you can see as a recipe for creating a secret. These `SealedSecret` are then safe to check into your git
+which you can see as a recipe for creating a secret. These `SealedSecret`s are then safe to check into your git
 repository.
 
 ### Advantages
@@ -133,7 +133,7 @@ This way you get a rough idea how they work and what the key differences are.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/EW25WpErCmA?si=M6q71U4xJ407Hjy5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-## Why using External Secrets Operator?
+## Why Use External Secrets Operator?
 The core principle of GitOps is that git is the single source of truth — everything is declared as code,
 committed to a repository, and an operator continuously reconciles the actual cluster state to match that
 desired state. Secrets sit awkwardly in this model because you cannot commit plaintext values to git.
