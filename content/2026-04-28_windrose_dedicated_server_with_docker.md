@@ -96,8 +96,9 @@ If you want to show the logs, option `-f` follows the logs:
 docker compose logs -f
 ```
 That's basically all you need to do for running your own Windrose server. If you want to change the Windrose server settings
-just change/add options in the `command` section of the `windrose-server` service in the
-[docker compose file](https://github.com/max-pfeiffer/windrose-dedicated-server-docker-helm/blob/main/examples/docker-compose/compose.yaml).
+just change/add options in the `environment` section of the `windrose-server` service in the
+[docker compose file](https://github.com/max-pfeiffer/windrose-dedicated-server-docker-helm/blob/main/examples/docker-compose/compose.yaml). Please check the [Configuration section on GitHub](https://github.com/max-pfeiffer/windrose-dedicated-server-docker-helm#configuration)
+for a list of environment variables you can use.
 
 ## Automate Server Updates
 On a Linux system you can automate the server update easily with a [script](https://github.com/max-pfeiffer/windrose-dedicated-server-docker-helm/blob/main/examples/docker-compose/windrose-server-update.sh).
