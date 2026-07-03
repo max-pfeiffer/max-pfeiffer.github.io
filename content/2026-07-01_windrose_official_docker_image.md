@@ -1,4 +1,4 @@
-Title: Kraken Express published an official Windrose Dedicated Server Docker Image 
+Title: Kraken Express published an official Windrose Dedicated Server Docker Image
 Description: In depth technical analysis of the official Windrose Server Docker Image   
 Summary: In depth technical analysis of the official Windrose Server Docker Image
 Date: 2026-07-01 23:00
@@ -85,9 +85,9 @@ flow, and port 7777 is irrelevant.
 
 ## Notable payload details
 Bundled third-party bits: Sentry crashpad_handler (crash reporting), Steamworks 1.57, MsQuic 2.20, ONNX Runtime 1.20
-(NNE plugin), and a set of Boost 1.85 libs including libboost_python311. There's also mention of a
-R5WorldDescriptionUpdater.exe tool in the docs for re-validating hand-edited world files — but only the Windows .exe is
-referenced; no Linux equivalent ships in the image.
+(NNE plugin), and a set of Boost 1.85 libs including libboost_python311. There's also mention of a R5WorldDescriptionUpdater.exe
+tool in the docs for re-validating hand-edited world files, but only the Windows .exe is referenced.
+No Linux equivalent ships in the image.
 
 Config must be injected as files (an initContainer or templated mount writing ServerDescription.json is the right shape), 
 and note the bind-mount subtlety that flow, and port 7777 is irrelevant.

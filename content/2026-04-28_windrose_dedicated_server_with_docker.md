@@ -111,4 +111,5 @@ For me, it was safe to run the update job with cron at 06:00 in the morning:
 ## Related Articles
 
 * [Hosting Game Servers on Bare Metal Kubernetes with Cilium as CNI]({filename}/2026-03-21_game_server_hosting_with_cilium.md)
-* [How to set up a Valheim dedicated server using Docker and Docker Compose ]({filename}/2026-03-23_valheim_dedicated_server_with_docker.md)
+* [How to set up a Valheim dedicated server using Docker and Docker Compose]({filename}/2026-03-23_valheim_dedicated_server_with_docker.md)
+* [Kraken Express published an official Windrose Dedicated Server Docker Image]({filename}/2026-07-01_windrose_official_docker_image.md)
