@@ -9,9 +9,6 @@ Image: https://max-pfeiffer.github.io/images/2026-07-01_windrose_official_docker
 
 Kraken Express published their [official Windrose Docker image on Docker Hub](https://hub.docker.com/r/windroseserver/windroseserver)
 in May. Also, they updated their [dedicated server guide with some instructions](https://playwindrose.com/dedicated-server-guide/#wsg-docker).
-There seems to be no automation in place and the image is already outdated today (1.7.2026) as they just published a major
-content update. This makes the image basically useless because clients are updated by Steam automatically.
-Hey Kraken Express, can I help as professional DevOps engineer?
 
 ![2026-07-01_windrose_official_docker_image.png]({static}/images/2026-07-01_windrose_official_docker_image.png)
 
@@ -95,8 +92,7 @@ and note the bind-mount subtlety that flow, and port 7777 is irrelevant.
 ## Conclusion
 It seems to be an early stage build with quite a way still to go. At least the dedicated Windrose Server runs natively
 on Linux now. The absence of configuration options via environment variables makes it a no-go for Kubernetes as 
-hosting platform. But it's an image I could build ontop. The fact that the latest image version is outdated compared
-to the client versions distributed via Steam makes it useless eventually.
+hosting platform. But it's an image I could build ontop.
 
 ## Related Articles
 
