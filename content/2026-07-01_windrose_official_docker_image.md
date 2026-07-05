@@ -1,6 +1,6 @@
 Title: Kraken Express published an official Windrose Dedicated Server Docker Image
-Description: In depth technical analysis of the official Windrose Server Docker Image   
-Summary: In depth technical analysis of the official Windrose Server Docker Image
+Description: In-depth technical analysis of the official Windrose Server Docker Image
+Summary: In-depth technical analysis of the official Windrose Server Docker Image
 Date: 2026-07-01 23:00
 Author: Max Pfeiffer
 Lang: en
@@ -9,6 +9,14 @@ Image: https://max-pfeiffer.github.io/images/2026-07-01_windrose_official_docker
 
 Kraken Express published their [official Windrose Docker image on Docker Hub](https://hub.docker.com/r/windroseserver/windroseserver)
 in May. Also, they updated their [dedicated server guide with some instructions](https://playwindrose.com/dedicated-server-guide/#wsg-docker).
+I did a deep analysis of this image to learn how to operate this new Linux native Windrose server build.
+The official image from Kraken Express does not support configuration through environment variables and the
+persistence of the server configuration is rather awkward. This makes it incompatible to run on Kubernetes
+container orchestration system.
+
+So I used the native Linux binaries and built my [own Windrose dedicated server image](https://github.com/max-pfeiffer/windrose-dedicated-server-docker-helm)
+with it. It supports configuration with environment variables. My project also contains a 
+[Helm chart for running the Windrose server on Kubernetes](https://github.com/max-pfeiffer/windrose-dedicated-server-docker-helm/tree/main/charts/windrose). 
 
 ![2026-07-01_windrose_official_docker_image.png]({static}/images/2026-07-01_windrose_official_docker_image.png)
 
@@ -48,7 +56,7 @@ UE_PROJECT_ROOT=$(dirname "$(echo "$0" | xargs readlink -f)")
 chmod +x "$UE_PROJECT_ROOT/R5/Binaries/Linux/WindroseServer-Linux-Shipping"
 "$UE_PROJECT_ROOT/R5/Binaries/Linux/WindroseServer-Linux-Shipping" R5 "$@"
 ```
-So the actual process is WindroseServer-Linux-Shipping R5, running in the foreground as PID under bash, as uid 1000.
+So the actual process is WindroseServer-Linux-Shipping R5, running in the foreground as PID 1 under bash, as uid 1000.
 No arguments are passed by default (the CMD forwards nothing), though you could append UE flags like -log by
 overriding the command.
 
@@ -86,13 +94,15 @@ Bundled third-party bits: Sentry crashpad_handler (crash reporting), Steamworks 
 tool in the docs for re-validating hand-edited world files, but only the Windows .exe is referenced.
 No Linux equivalent ships in the image.
 
-Config must be injected as files (an initContainer or templated mount writing ServerDescription.json is the right shape), 
-and note the bind-mount subtlety that flow, and port 7777 is irrelevant.
-
 ## Conclusion
 It seems to be an early stage build with quite a way still to go. At least the dedicated Windrose Server runs natively
 on Linux now. The absence of configuration options via environment variables makes it a no-go for Kubernetes as 
-hosting platform. But it's an image I could build ontop.
+hosting platform. But it's an image I can build on top of.
+
+What worries me is that the [Steam Depot of the Windrose dedicated server](https://steamdb.info/app/4129620/depots/)
+still does not contain any Linux files that we could download with `steamcmd`. The question is why?
+So let's hope Kraken Express provides them at some point. Or at least keeps 
+[that new official Image](https://hub.docker.com/r/windroseserver/windroseserver) up-to-date.
 
 ## Related Articles
 
