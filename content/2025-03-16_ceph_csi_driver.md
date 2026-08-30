@@ -2,6 +2,7 @@ Title: Configuring and using Ceph CSI Driver for Kubernetes
 Description: A guide for configuring a Ceph cluster and Ceph CSI driver as Kubernetes storage solution   
 Summary: A guide for configuring a Ceph cluster and Ceph CSI driver as Kubernetes storage solution
 Date: 2025-03-16 11:00
+Modified: 2025-08-11 18:45
 Author: Max Pfeiffer
 Lang: en
 Keywords: Ceph, Ceph CSI, Container Storage Interface, Kubernetes, Storage, Volumes, PVC

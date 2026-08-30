@@ -2,6 +2,7 @@ Title: Cost efficient dynamic DNS solution with AWS resources
 Description: I build my own dynamic DNS solution using AWS resources and my own dynamic-dns-update-client
 Summary: I build my own dynamic DNS solution using AWS resources and my own dynamic-dns-update-client
 Date: 2025-06-27 20:00
+Modified: 2025-08-06 00:07
 Author: Max Pfeiffer
 Lang: en
 Keywords: Dynamic DNS, DNS, OpenWRT, Dynamic DNS Update Client, OpenTofu

@@ -2,6 +2,7 @@ Title: Securing Prometheus and Alertmanager web UI with oauth2-proxy and Keycloa
 Description: How to configure a secure login for your Prometheus and Alertmanger web UI with oauth2-proxy and Keycloak, contains configuration examples
 Summary: How to configure a secure login for your Prometheus and Alertmanger web UI with oauth2-proxy and Keycloak, contains configuration examples
 Date: 2025-02-28 12:00
+Modified: 2025-08-11 18:45
 Author: Max Pfeiffer
 Lang: en
 Keywords: Prometheus, Alertmanager, oauth2-proxy, Keycloak, SSO, Single Sign On, Kubernetes

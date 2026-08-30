@@ -2,6 +2,7 @@ Title: A guide for setting up a Windrose dedicated server using Docker and Docke
 Description: A how-to guide for setting up your own Windrose dedicated server using Docker and Docker Compose    
 Summary: A how-to guide for setting up your own Windrose dedicated server using Docker and Docker Compose
 Date: 2026-04-28 20:00
+Modified: 2026-07-03 07:02
 Author: Max Pfeiffer
 Lang: en
 Keywords: Windrose, Dedicated Server, Docker, Docker Compose

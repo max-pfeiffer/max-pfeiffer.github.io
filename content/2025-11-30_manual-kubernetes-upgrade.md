@@ -2,6 +2,7 @@ Title: Upgrading Kubernetes on Debian 13 Trixie
 Description: Manually upgrading a Kubernetes cluster with kubeadm
 Summary: Manually upgrading a Kubernetes cluster with kubeadm
 Date: 2025-11-30 12:00
+Modified: 2025-12-14 19:16
 Author: Max Pfeiffer
 Lang: en
 Keywords: Kubernetes, kubeadm, Debian
