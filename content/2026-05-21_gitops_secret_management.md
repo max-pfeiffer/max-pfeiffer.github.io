@@ -2,6 +2,7 @@ Title: Managing Kubernetes Secrets the GitOps Way with External Secrets Operator
 Description: An overview about the current options of GitOps secrets management and configuration example for External Secrets Operator in a Kubernetes Cluster    
 Summary: An overview about the current options of GitOps secrets management and configuration example for External Secrets Operator in a Kubernetes Cluster
 Date: 2026-05-21 20:00
+Modified: 2026-05-25 11:21
 Author: Max Pfeiffer
 Lang: en
 Keywords: Kubernetes, GitOps, Secret, External Secrets Operator

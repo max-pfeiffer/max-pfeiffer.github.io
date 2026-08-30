@@ -2,6 +2,7 @@ Title: Virtualized NAS with TrueNAS and Proxmox
 Description: How to build a virtualized NAS with TrueNAS and Proxmox
 Summary: How to build a virtualized NAS with TrueNAS and Proxmox
 Date: 2025-08-03 20:00
+Modified: 2025-08-06 00:07
 Author: Max Pfeiffer
 Lang: en
 Keywords: NAS, TrueNAS, Proxmox, Virtual Machine

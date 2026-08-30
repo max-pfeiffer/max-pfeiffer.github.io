@@ -2,6 +2,7 @@ Title: Installing Kubernetes on Debian 13 Trixie
 Description: Manually installing a Kubernetes cluster with kubeadm
 Summary: Manually installing a Kubernetes cluster with kubeadm
 Date: 2025-11-21 18:00
+Modified: 2026-02-10 18:19
 Author: Max Pfeiffer
 Lang: en
 Keywords: Kubernetes, kubeadm, Debian

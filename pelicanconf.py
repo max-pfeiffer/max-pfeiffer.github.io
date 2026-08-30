@@ -1,5 +1,9 @@
 AUTHOR = 'Max Pfeiffer'
 SITENAME = 'The Nerdy Tech Blog'
+BIO = (
+    'Hands-on articles about Kubernetes, Ceph, Proxmox, Docker and '
+    'self-hosted infrastructure by Max Pfeiffer.'
+)
 SITEURL = "http://127.0.0.1:8000"
 THEME = "pelican-hyde"
 
@@ -39,12 +43,22 @@ SEO_REPORT = False
 SEO_ENHANCER = True
 SEO_ENHANCER_OPEN_GRAPH = False
 SEO_ENHANCER_TWITTER_CARDS = False
-SEO_ENHANCER_SITEMAP_URL = "https://max-pfeiffer.github.io/sitemap.txt"
-LOGO = "https://max-pfeiffer.github.io/blog/images/avatar.jpeg"
+SEO_ENHANCER_SITEMAP_URL = "https://max-pfeiffer.github.io/sitemap.xml"
+LOGO = "https://max-pfeiffer.github.io/images/avatar.jpeg"
 
 # Sitemap plugin
 SITEMAP = {
-    "format": "txt",
+    "format": "xml",
+    # Thin/duplicate listing pages: they duplicate the homepage and only
+    # dilute the sitemap, so keep them crawlable but out of it.
+    "exclude": [
+        r"^author/",
+        r"^category/",
+        r"^tag/",
+        r"authors\.html",
+        r"categories\.html",
+        r"tags\.html",
+    ],
     "priorities": {
         "articles": 0.9,
         "indexes": 1.0,

@@ -2,6 +2,7 @@ Title: Automating TLS Certificates with cert-manager and Gateway API using ACME 
 Description: Configuring automatic TLS certificate generation with cert-manger and the new Gateway API using the ACME HTTP01 challenge for my Kubernetes clusters 
 Summary: Configuring automatic TLS certificate generation with cert-manger and the new Gateway API using the ACME HTTP01 challenge for my Kubernetes clusters
 Date: 2026-02-10 18:00
+Modified: 2026-04-26 09:22
 Author: Max Pfeiffer
 Lang: en
 Keywords: Kubernetes, Gateway API, cert-manger, ACME, HTTP01

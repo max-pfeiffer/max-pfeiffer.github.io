@@ -2,6 +2,7 @@ Title: Overhauling my Ceph cluster (again)
 Description: Removing Waveshare POE HATs, switching to USB power supplies    
 Summary: Removing Waveshare POE HATs, switching to USB power supplies
 Date: 2025-10-01 12:00
+Modified: 2026-02-15 17:30
 Author: Max Pfeiffer
 Lang: en
 Keywords: Ceph, Ceph CSI, Raspberry Pi 5

@@ -2,6 +2,7 @@ Title: How to set up a Valheim dedicated server using Docker and Docker Compose
 Description: A guide for setting up your own Valheim dedicated server using Docker and Docker Compose    
 Summary: A guide for setting up your own Valheim dedicated server using Docker and Docker Compose
 Date: 2026-03-23 20:00
+Modified: 2026-05-02 09:37
 Author: Max Pfeiffer
 Lang: en
 Keywords: Valheim, dedicated server, Docker

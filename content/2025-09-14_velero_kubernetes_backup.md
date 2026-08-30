@@ -2,6 +2,7 @@ Title: Velero as Backup solution for Kubernetes
 Description: A guide for configuring Velero using AWS S3 as storage provider 
 Summary: A guide for configuring Velero using AWS S3 as storage provider
 Date: 2025-09-14 21:00
+Modified: 2026-01-01 18:21
 Author: Max Pfeiffer
 Lang: en
 Keywords: Velero, Kubernetes, Backup, Restore, AWS  

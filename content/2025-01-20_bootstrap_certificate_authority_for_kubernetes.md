@@ -2,6 +2,7 @@ Title: How to Bootstrap a Certificate Authority in your Kubernetes Cluster
 Description: A guide for bootstrapping a certificate authority for issuing TLS certificates in a Kubernetes cluster   
 Summary: A guide for bootstrapping a certificate authority for issuing TLS certificates in a Kubernetes cluster
 Date: 2025-01-20 21:00
+Modified: 2025-08-11 18:45
 Author: Max Pfeiffer
 Lang: en
 Keywords: CA, certificate authority, Step CA, Step Issuer, cert-manager, bootstrap, Kubernetes, TLS

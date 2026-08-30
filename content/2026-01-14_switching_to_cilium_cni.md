@@ -2,6 +2,7 @@ Title: Switching to Cilium as Container Network Interface (CNI) for my bare meta
 Description: Making use of L2 Announcements, LB IPAM, Ingress controller and Gateway API on Talos Linux
 Summary: Making use of L2 Announcements, LB IPAM, Ingress controller and Gateway API on Talos Linux
 Date: 2026-01-16 12:00
+Modified: 2026-03-23 09:20
 Author: Max Pfeiffer
 Lang: en
 Keywords: Cilium, Kubernetes, Gateway API, L2 Announcement, LB IPAM

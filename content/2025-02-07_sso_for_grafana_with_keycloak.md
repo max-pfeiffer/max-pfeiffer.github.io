@@ -2,6 +2,7 @@ Title: Single Sign On (SSO) with Grafana and Keycloak
 Description: A guide for configuring Single Sign On (SSO) for Grafana with Keycloak, contains also examples for OpenTofu    
 Summary: A guide for configuring Single Sign On (SSO) for Grafana with Keycloak, contains also examples for OpenTofu
 Date: 2025-02-07 16:00
+Modified: 2025-08-11 18:45
 Author: Max Pfeiffer
 Lang: en
 Keywords: Grafana, Keycloak, SSO, Single Sign On, Kubernetes

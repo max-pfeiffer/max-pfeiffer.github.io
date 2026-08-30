@@ -2,6 +2,7 @@ Title: Overhauling my Ceph cluster
 Description: Upgrading all Raspberry Pi 5 with NVMe HAT supporting two SSDs, re-installing Ceph cluster, Vlan configuration    
 Summary: Upgrading all Raspberry Pi 5 with NVMe HAT supporting two SSDs, re-installing Ceph cluster, Vlan configuration
 Date: 2025-05-10 12:00
+Modified: 2025-10-04 10:09
 Author: Max Pfeiffer
 Lang: en
 Keywords: Ceph, Ceph CSI, Raspberry Pi 5, VLAN, Kubernetes

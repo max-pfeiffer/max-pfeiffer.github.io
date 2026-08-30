@@ -2,6 +2,7 @@ Title: Hosting Game Servers on Bare Metal Kubernetes with kube-vip
 Description: A guide for hosting dedicated game servers on Kubernetes with kube-vip    
 Summary: A guide for hosting dedicated game servers on Kubernetes with kube-vip
 Date: 2025-04-23 13:00
+Modified: 2026-05-02 09:37
 Author: Max Pfeiffer
 Lang: en
 Keywords: Game Server, UDP, kupe-vip, Kubernetes

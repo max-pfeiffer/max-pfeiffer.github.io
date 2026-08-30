@@ -2,6 +2,7 @@ Title: Hosting Game Servers on Bare Metal Kubernetes with Cilium as CNI
 Description: A guide for hosting dedicated game servers on Kubernetes with Cilium as CNI    
 Summary: A guide for hosting dedicated game servers on Kubernetes with Cilium as CNI
 Date: 2026-03-21 13:00
+Modified: 2026-05-02 09:37
 Author: Max Pfeiffer
 Lang: en
 Keywords: Game Server, UDP, Cilium, Kubernetes

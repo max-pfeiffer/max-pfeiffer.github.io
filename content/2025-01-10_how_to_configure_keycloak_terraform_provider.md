@@ -2,6 +2,7 @@ Title: How to configure Keycloak Terraform provider for automated provisioning
 Description: Since v26.0.0 Keycloak provides new configuration options for bootstrapping an admin service account   
 Summary: Since v26.0.0 Keycloak provides new configuration options for bootstrapping an admin service account
 Date: 2025-01-10 11:00
+Modified: 2025-08-11 18:45
 Author: Max Pfeiffer
 Lang: en
 Keywords: Keycloak, OpenTofu, Terraform, Terraform Provider, bootstrapping, Kubernetes

@@ -2,6 +2,7 @@ Title: Kraken Express published an official Windrose Dedicated Server Docker Ima
 Description: In-depth technical analysis of the official Windrose Server Docker Image
 Summary: In-depth technical analysis of the official Windrose Server Docker Image
 Date: 2026-07-01 23:00
+Modified: 2026-07-05 20:40
 Author: Max Pfeiffer
 Lang: en
 Keywords: Windrose, Dedicated Server, Docker, Docker Compose
